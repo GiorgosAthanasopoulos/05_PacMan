@@ -20,3 +20,6 @@
 - Feel free to customize the maze, add more/different AI behaviors, or add more levels.
 
 - Add fruit pickups. Fruit appears after enough dots are eaten, and awards bonus points. (This is a stretch goal because I forgot about it until now…)
+
+## Art
+- Finish map pixel art components
