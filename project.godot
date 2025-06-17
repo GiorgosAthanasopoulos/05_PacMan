@@ -31,7 +31,7 @@ shader_language/warnings/treat_warnings_as_errors=true
 [display]
 
 window/size/viewport_width=448
-window/size/viewport_height=496
+window/size/viewport_height=592
 window/stretch/mode="viewport"
 
 [input]
