@@ -1,0 +1,108 @@
+[gd_scene load_steps=9 format=3 uid="uid://bivjxgf8ajwll"]
+
+[ext_resource type="PackedScene" uid="uid://dvnooic0oi8gx" path="res://assets/sprites/map/tiled/level_1.tscn" id="1_x3ahk"]
+[ext_resource type="PackedScene" uid="uid://dn3qt17th2vdd" path="res://scenes/characters/pacman/pacman.tscn" id="2_fngju"]
+[ext_resource type="PackedScene" uid="uid://dnrrejnoal61x" path="res://scenes/ui/components/cherry_powerup/cherry_powerup.tscn" id="3_5o1mp"]
+[ext_resource type="PackedScene" uid="uid://cxg0o0f5qeui5" path="res://scenes/characters/blinky/blinky.tscn" id="3_58uyj"]
+[ext_resource type="PackedScene" uid="uid://cg4cu00ak1lxh" path="res://scenes/ui/components/pacman_life/pacman_life.tscn" id="3_spwf2"]
+[ext_resource type="PackedScene" uid="uid://6hvwlh4kka0t" path="res://scenes/characters/clyde/clyde.tscn" id="4_ojo11"]
+[ext_resource type="PackedScene" uid="uid://bpqfg6wg3ris2" path="res://scenes/characters/inky/inky.tscn" id="5_31rk5"]
+[ext_resource type="PackedScene" uid="uid://dri1hpp5ta7f3" path="res://scenes/characters/pinky/pinky.tscn" id="6_w3g2g"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="God" type="Node2D" parent="."]
+
+[node name="Map" parent="God" instance=ExtResource("1_x3ahk")]
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UI/CanvasLayer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "1UP"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="UI/CanvasLayer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "0"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UI/CanvasLayer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "HIGH  SCORE"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="UI/CanvasLayer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "0"
+horizontal_alignment = 1
+
+[node name="Entities" type="Node2D" parent="UI"]
+
+[node name="Pacman" parent="UI/Entities" instance=ExtResource("2_fngju")]
+position = Vector2(232, 424)
+
+[node name="Ghosts" type="Node2D" parent="UI/Entities"]
+
+[node name="Blinky" parent="UI/Entities/Ghosts" instance=ExtResource("3_58uyj")]
+position = Vector2(216, 232)
+
+[node name="Clyde" parent="UI/Entities/Ghosts" instance=ExtResource("4_ojo11")]
+position = Vector2(264, 296)
+
+[node name="Inky" parent="UI/Entities/Ghosts" instance=ExtResource("5_31rk5")]
+position = Vector2(184, 296)
+
+[node name="Pinky" parent="UI/Entities/Ghosts" instance=ExtResource("6_w3g2g")]
+position = Vector2(232, 296)
+
+[node name="Lifes" type="Node2D" parent="."]
+
+[node name="PacmanLife" parent="Lifes" instance=ExtResource("3_spwf2")]
+position = Vector2(80, 568)
+
+[node name="PacmanLife2" parent="Lifes" instance=ExtResource("3_spwf2")]
+position = Vector2(112, 568)
+
+[node name="PacmanLife3" parent="Lifes" instance=ExtResource("3_spwf2")]
+position = Vector2(144, 568)
+
+[node name="Powerups" type="Node2D" parent="."]
+
+[node name="CherryPowerup" parent="." instance=ExtResource("3_5o1mp")]
+position = Vector2(320, 568)
+
+[node name="CherryPowerup2" parent="." instance=ExtResource("3_5o1mp")]
+position = Vector2(352, 568)
