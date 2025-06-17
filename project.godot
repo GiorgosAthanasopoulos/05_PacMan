@@ -34,6 +34,11 @@ window/size/viewport_width=448
 window/size/viewport_height=592
 window/stretch/mode="viewport"
 
+[gui]
+
+theme/custom="uid://dodkyf7sgy7c4"
+theme/custom_font="uid://0br0rtwujwt0"
+
 [input]
 
 move_up={

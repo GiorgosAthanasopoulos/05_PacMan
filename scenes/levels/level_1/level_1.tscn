@@ -40,6 +40,7 @@ alignment = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 1
 
 [node name="Label" type="Label" parent="UI/CanvasLayer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -56,6 +57,7 @@ horizontal_alignment = 1
 [node name="VBoxContainer2" type="VBoxContainer" parent="UI/CanvasLayer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 1
 
 [node name="Label" type="Label" parent="UI/CanvasLayer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -69,40 +71,55 @@ size_flags_vertical = 3
 text = "0"
 horizontal_alignment = 1
 
-[node name="Entities" type="Node2D" parent="UI"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="UI/CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
 
-[node name="Pacman" parent="UI/Entities" instance=ExtResource("2_fngju")]
-position = Vector2(232, 424)
+[node name="Label" type="Label" parent="UI/CanvasLayer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "2UP"
+horizontal_alignment = 1
 
-[node name="Ghosts" type="Node2D" parent="UI/Entities"]
+[node name="Label2" type="Label" parent="UI/CanvasLayer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
 
-[node name="Blinky" parent="UI/Entities/Ghosts" instance=ExtResource("3_58uyj")]
-position = Vector2(216, 232)
+[node name="Lifes" type="Node2D" parent="UI"]
 
-[node name="Clyde" parent="UI/Entities/Ghosts" instance=ExtResource("4_ojo11")]
-position = Vector2(264, 296)
-
-[node name="Inky" parent="UI/Entities/Ghosts" instance=ExtResource("5_31rk5")]
-position = Vector2(184, 296)
-
-[node name="Pinky" parent="UI/Entities/Ghosts" instance=ExtResource("6_w3g2g")]
-position = Vector2(232, 296)
-
-[node name="Lifes" type="Node2D" parent="."]
-
-[node name="PacmanLife" parent="Lifes" instance=ExtResource("3_spwf2")]
+[node name="PacmanLife" parent="UI/Lifes" instance=ExtResource("3_spwf2")]
 position = Vector2(80, 568)
 
-[node name="PacmanLife2" parent="Lifes" instance=ExtResource("3_spwf2")]
+[node name="PacmanLife2" parent="UI/Lifes" instance=ExtResource("3_spwf2")]
 position = Vector2(112, 568)
 
-[node name="PacmanLife3" parent="Lifes" instance=ExtResource("3_spwf2")]
+[node name="PacmanLife3" parent="UI/Lifes" instance=ExtResource("3_spwf2")]
 position = Vector2(144, 568)
 
-[node name="Powerups" type="Node2D" parent="."]
+[node name="Powerups" type="Node2D" parent="UI"]
 
-[node name="CherryPowerup" parent="." instance=ExtResource("3_5o1mp")]
+[node name="CherryPowerup" parent="UI/Powerups" instance=ExtResource("3_5o1mp")]
 position = Vector2(320, 568)
 
-[node name="CherryPowerup2" parent="." instance=ExtResource("3_5o1mp")]
+[node name="CherryPowerup2" parent="UI/Powerups" instance=ExtResource("3_5o1mp")]
 position = Vector2(352, 568)
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="Pacman" parent="Entities" instance=ExtResource("2_fngju")]
+position = Vector2(232, 424)
+
+[node name="Ghosts" type="Node2D" parent="Entities"]
+
+[node name="Blinky" parent="Entities/Ghosts" instance=ExtResource("3_58uyj")]
+position = Vector2(216, 232)
+
+[node name="Clyde" parent="Entities/Ghosts" instance=ExtResource("4_ojo11")]
+position = Vector2(264, 296)
+
+[node name="Inky" parent="Entities/Ghosts" instance=ExtResource("5_31rk5")]
+position = Vector2(184, 296)
+
+[node name="Pinky" parent="Entities/Ghosts" instance=ExtResource("6_w3g2g")]
+position = Vector2(232, 296)
