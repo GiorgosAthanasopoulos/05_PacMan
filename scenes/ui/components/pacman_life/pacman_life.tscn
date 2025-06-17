@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg4cu00ak1lxh"]
+
+[ext_resource type="Texture2D" uid="uid://mftuy8u6fg0l" path="res://assets/sprites/pacman/pacman.png" id="1_7u4d6"]
+
+[node name="PacmanLife" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_7u4d6")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
