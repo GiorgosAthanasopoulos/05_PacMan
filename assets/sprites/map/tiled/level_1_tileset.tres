@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://0c68wtfcajp5"]
+[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://0c68wtfcajp5"]
 
 [ext_resource type="Texture2D" uid="uid://d4kg7t4enn2v2" path="res://assets/sprites/map/map.png" id="1_alfo4"]
 [ext_resource type="Texture2D" uid="uid://cusj111j4wih6" path="res://assets/sprites/powerups/power_pellet/power_pellet.png" id="2_022f7"]
 [ext_resource type="Texture2D" uid="uid://dnknh814ugvmh" path="res://assets/sprites/powerups/dot/dot.png" id="3_g365v"]
+[ext_resource type="Texture2D" uid="uid://cv4kkgkjx0stf" path="res://assets/sprites/powerups/cherry/cherry.png" id="4_ehlgb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_shd1r"]
 
@@ -235,9 +236,14 @@ texture = ExtResource("2_022f7")
 texture = ExtResource("3_g365v")
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ddlcy"]
+texture = ExtResource("4_ehlgb")
+0:0/0 = 0
+
 [resource]
 physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_shd1r")
 sources/0 = SubResource("TileSetAtlasSource_0")
 sources/1 = SubResource("TileSetAtlasSource_ehlgb")
 sources/2 = SubResource("TileSetAtlasSource_1xllh")
+sources/3 = SubResource("TileSetAtlasSource_ddlcy")
