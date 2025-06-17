@@ -27,3 +27,5 @@
     - 3rd	800
     - 4th	1,600
     
+# Prison
+- White gates should not be accessible by pacman (= pacman cannot enter prison but ghosts can, e.g. when they die)
