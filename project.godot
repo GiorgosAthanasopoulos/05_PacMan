@@ -30,8 +30,8 @@ shader_language/warnings/treat_warnings_as_errors=true
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=448
+window/size/viewport_height=496
 window/stretch/mode="viewport"
 
 [input]
@@ -65,3 +65,10 @@ move_left={
 
 2d/run_on_separate_thread=true
 3d/run_on_separate_thread=true
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+textures/default_filters/use_nearest_mipmap_filter=true
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
