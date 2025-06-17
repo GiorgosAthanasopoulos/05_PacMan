@@ -30,5 +30,31 @@
 
 - Add fruit pickups. Fruit appears after enough dots are eaten, and awards bonus points. (This is a stretch goal because I forgot about it until now…)
 
-## Art
-- Finish map pixel art components
+## AI
+
+- Make each ghost's ai
+
+## UI
+
+- Add main menu
+- Add settings menu
+- Add pause menu
+
+## Music
+
+- Add bgm
+
+## SFX
+
+- moving
+- eating fruit
+- eating ghost
+- eating power pellet
+- ghost eyes returning home
+- pacman death
+- intro
+- interlevel intro
+
+## Session
+
+- Save/Load settings/highscores
