@@ -1,0 +1,52 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://c8pryvnxdd2te"]
+
+[ext_resource type="Texture2D" uid="uid://d4kg7t4enn2v2" path="res://assets/sprites/map/map.png" id="1_rjdmn"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l3ugy"]
+texture = ExtResource("1_rjdmn")
+0:0/0 = 0
+2:0/0 = 0
+4:0/0 = 0
+6:0/0 = 0
+8:0/0 = 0
+10:0/0 = 0
+12:0/0 = 0
+14:0/0 = 0
+0:2/0 = 0
+2:2/0 = 0
+4:2/0 = 0
+6:2/0 = 0
+8:2/0 = 0
+10:2/0 = 0
+12:2/0 = 0
+14:2/0 = 0
+0:4/0 = 0
+2:4/0 = 0
+4:4/0 = 0
+6:4/0 = 0
+8:4/0 = 0
+10:4/0 = 0
+12:4/0 = 0
+0:6/0 = 0
+2:6/0 = 0
+4:6/0 = 0
+6:6/0 = 0
+8:6/0 = 0
+10:6/0 = 0
+12:6/0 = 0
+14:6/0 = 0
+0:8/0 = 0
+2:8/0 = 0
+4:8/0 = 0
+6:8/0 = 0
+8:8/0 = 0
+10:8/0 = 0
+12:8/0 = 0
+14:8/0 = 0
+0:10/0 = 0
+2:10/0 = 0
+4:10/0 = 0
+6:10/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_l3ugy")

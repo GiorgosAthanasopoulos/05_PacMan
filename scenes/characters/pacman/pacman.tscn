@@ -1,28 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://dn3qt17th2vdd"]
+[gd_scene load_steps=7 format=3 uid="uid://dn3qt17th2vdd"]
 
 [ext_resource type="Texture2D" uid="uid://mftuy8u6fg0l" path="res://assets/sprites/pacman/pacman.png" id="1_is5xq"]
-[ext_resource type="Script" uid="uid://slhu0w1ulc70" path="res://scripts/characters/pacman/pacman.gd" id="1_trbi5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmoag"]
 size = Vector2(14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_is5xq"]
+atlas = ExtResource("1_is5xq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trbi5"]
+atlas = ExtResource("1_is5xq")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4rq0"]
 atlas = ExtResource("1_is5xq")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_is5xq"]
-atlas = ExtResource("1_is5xq")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_trbi5"]
-atlas = ExtResource("1_is5xq")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_bmoag"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_dr4uu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a4rq0")
+"texture": SubResource("AtlasTexture_is5xq")
 }],
 "loop": true,
 "name": &"idle",
@@ -30,10 +29,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_is5xq")
+"texture": SubResource("AtlasTexture_trbi5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_trbi5")
+"texture": SubResource("AtlasTexture_a4rq0")
 }],
 "loop": true,
 "name": &"moving",
@@ -41,12 +40,10 @@ animations = [{
 }]
 
 [node name="Pacman" type="CharacterBody2D"]
-script = ExtResource("1_trbi5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bmoag")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_bmoag")
+sprite_frames = SubResource("SpriteFrames_dr4uu")
 animation = &"idle"
-autoplay = "moving"

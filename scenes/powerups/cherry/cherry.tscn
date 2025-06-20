@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2ixp6tffinwd"]
+
+[ext_resource type="Texture2D" uid="uid://cv4kkgkjx0stf" path="res://assets/sprites/powerups/cherry/cherry.png" id="1_gi3ks"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffaoo"]
+size = Vector2(16, 16)
+
+[node name="Cherry" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ffaoo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gi3ks")

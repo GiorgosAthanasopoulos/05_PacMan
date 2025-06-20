@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtwyyfal006t8"]
+
+[ext_resource type="Texture2D" uid="uid://dnknh814ugvmh" path="res://assets/sprites/powerups/dot/dot.png" id="1_yho80"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yho80"]
+size = Vector2(16, 16)
+
+[node name="Dot" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yho80")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yho80")
