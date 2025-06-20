@@ -1,6 +1,5 @@
 # TODOs
 ## Map
-- Create the Pac-Man maze. 
 - Place a score and high score counter above the level, and a life counter below.
 - The maze operates on a grid.
 - There is a tunnel that allows Pac-Man and the ghosts to wrap across the screen, appearing on the other side.
