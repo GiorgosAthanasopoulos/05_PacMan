@@ -7,7 +7,6 @@
 - When Pac-Man collides with a dot, he will eat it, increasing the score.
 
 ## Ghosts
-- Add four ghosts.
 - They will chase Pac-Man through the level.
 - The ghosts start in a “pen” and are released after enough dots are eaten.
 - Each ghost will cycle between “chase mode” and “scatter mode.” 
