@@ -12,6 +12,7 @@ enum Direction {
 
 @export var move_interval: float = .5 # in seconds
 @export var tile_size: int = 16
+@export var map_width: int = 28
 
 @export var move_up_action: String = 'move_up'
 @export var move_left_action: String = 'move_left'
@@ -36,6 +37,12 @@ var _direction: Direction = Direction.NONE
 var _move_timer: float = 0
 
 
+func _ready() -> void:
+    var error: Error = Events.portal_used.connect(_on_portal_used) as Error
+    if error != OK:
+        print('Failed to connect portal_used to _on_portal_used in pacman.gd: ', error_string(error))
+
+
 func _physics_process(delta: float) -> void:
     _handle_input()
     _process_input(delta)
@@ -55,16 +62,12 @@ func _handle_input() -> void:
 
 func _process_input(delta: float) -> void:
     _move_timer -= delta
-
     if _move_timer > 0:
         return
-
     _move_timer = move_interval
 
-    if not _can_move_direction():
-        return
-
-    _move_direction()
+    if _can_move_direction():
+        _move_direction()
 
 
 func _move_direction() -> void:
@@ -102,3 +105,10 @@ func _handle_animation() -> void:
         _animated_sprite.play()
 
     _animated_sprite.rotation_degrees = sprite_rotation_move_direction[_direction]
+
+
+func _on_portal_used(left: bool, portal_pos: Vector2) -> void:
+    if left:
+        global_position = Vector2(tile_size * map_width - float(tile_size) / 2 - tile_size * 2, portal_pos.y)
+    else: # if right
+        global_position = Vector2(float(tile_size) / 2 + tile_size * 2, portal_pos.y)

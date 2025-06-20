@@ -1,7 +1,4 @@
 # TODOs
-## Map
-- There is a tunnel that allows Pac-Man and the ghosts to wrap across the screen, appearing on the other side.
-
 ## Ghosts
 - They will chase Pac-Man through the level.
 - The ghosts start in a “pen” and are released after enough dots are eaten.
