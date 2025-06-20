@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dn3qt17th2vdd"]
+[gd_scene load_steps=8 format=3 uid="uid://dn3qt17th2vdd"]
 
 [ext_resource type="Texture2D" uid="uid://mftuy8u6fg0l" path="res://assets/sprites/pacman/pacman.png" id="1_is5xq"]
+[ext_resource type="Script" uid="uid://slhu0w1ulc70" path="res://scripts/characters/pacman/pacman.gd" id="1_trbi5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmoag"]
-size = Vector2(14, 14)
+size = Vector2(16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_is5xq"]
 atlas = ExtResource("1_is5xq")
@@ -40,6 +41,8 @@ animations = [{
 }]
 
 [node name="Pacman" type="CharacterBody2D"]
+collision_mask = 62
+script = ExtResource("1_trbi5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bmoag")

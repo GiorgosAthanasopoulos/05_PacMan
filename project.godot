@@ -17,6 +17,10 @@ run/main_scene="uid://bivjxgf8ajwll"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/icons/launcher/icon.svg"
 
+[autoload]
+
+Events="*res://scripts/globals/events.gd"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=1
@@ -81,6 +85,15 @@ move_left={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":-1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Pacman"
+2d_physics/layer_2="Walls"
+2d_physics/layer_3="Ghosts"
+2d_physics/layer_4="Dots"
+2d_physics/layer_5="Pellets"
+2d_physics/layer_6="Cherries"
 
 [physics]
 

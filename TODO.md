@@ -4,7 +4,6 @@
 
 ## Pacman
 - He should be able to move in four directions through the maze.
-- When Pac-Man collides with a dot, he will eat it, increasing the score.
 
 ## Ghosts
 - They will chase Pac-Man through the level.

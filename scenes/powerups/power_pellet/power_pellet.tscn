@@ -1,14 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4xo7qatck4k"]
+[gd_scene load_steps=4 format=3 uid="uid://b4xo7qatck4k"]
 
 [ext_resource type="Texture2D" uid="uid://cusj111j4wih6" path="res://assets/sprites/powerups/power_pellet/power_pellet.png" id="1_2pi21"]
+[ext_resource type="Script" uid="uid://c27fvpeoqqauy" path="res://scripts/powerups/power_pellet/power_pellet.gd" id="1_06qgp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2pi21"]
 size = Vector2(16, 16)
 
-[node name="PowerPellet" type="StaticBody2D"]
+[node name="PowerPellet" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_06qgp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2pi21")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_2pi21")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
