@@ -16,7 +16,6 @@
 - From Level 13 onward, the fruit remains a Key, awarding the maximum 5,000 points per appearance.
 
 # Scoring
-- Dots (10 points each) = 240/level
 - Power pellets (50 points each) = 200/level
 - Eating ghosts (for a single pellet run)
     - 1st	200
