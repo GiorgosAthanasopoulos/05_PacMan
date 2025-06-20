@@ -21,15 +21,15 @@ func _ready() -> void:
     #
     var error: Error = Events.dot_eaten.connect(_increase_score) as Error
     if error != OK:
-        print('Failed to connect dot_eaten to _increase_score in level_1.gd: ', error)
+        print('Failed to connect dot_eaten to _increase_score in level_1.gd: ', error_string(error))
 
     error = Events.power_pellet_eaten.connect(_on_power_pellet_eaten) as Error
     if error != OK:
-        print('Failed to connect power_pellet_eaten to _on_power_pellet_eaten in level_1.gd: ', error)
+        print('Failed to connect power_pellet_eaten to _on_power_pellet_eaten in level_1.gd: ', error_string(error))
 
     error = Events.cherry_eaten.connect(_increase_score) as Error
     if error != OK:
-        print('Failed to connect cherry_eaten to _increase_score in level_1.gd: ', error)
+        print('Failed to connect cherry_eaten to _increase_score in level_1.gd: ', error_string(error))
 
 
 func _on_power_pellet_eaten(score: int) -> void:
