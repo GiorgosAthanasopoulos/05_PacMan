@@ -3,8 +3,8 @@ extends Node2D
 
 # When dying update high score if needed (and save to file)
 
-const MAX_LIFES: int = 3
-const SCORE_LIFE_INCREASE_THRESHOLD: int = 10_000
+@export var max_lifes: int = 3
+@export var score_life_increase_threshold: int = 10_000
 
 
 @onready var up1_label: Label = $'UI/CanvasLayer/HBoxContainer/VBoxContainer/1UP_Label'
@@ -13,7 +13,7 @@ const SCORE_LIFE_INCREASE_THRESHOLD: int = 10_000
 
 
 var _score: int = 0
-var _lifes: int = MAX_LIFES
+var _lifes: int = max_lifes
 
 
 func _ready() -> void:
@@ -42,12 +42,12 @@ func _increase_score(score: int) -> void:
     _score += score
     up1_label.text = str(_score)
 
-    if _score > SCORE_LIFE_INCREASE_THRESHOLD:
+    if _score > score_life_increase_threshold:
         _update_lifes(false)
 
 
 func _update_lifes(lost: bool) -> void:
-    if _lifes == MAX_LIFES and not lost:
+    if _lifes == max_lifes and not lost:
         # TODO: more than MAX_LIFES?
         return
 
