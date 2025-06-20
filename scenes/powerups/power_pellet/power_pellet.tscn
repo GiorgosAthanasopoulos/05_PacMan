@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c27fvpeoqqauy" path="res://scripts/powerups/power_pellet/power_pellet.gd" id="1_06qgp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2pi21"]
-size = Vector2(16, 16)
+size = Vector2(8, 8)
 
 [node name="PowerPellet" type="Area2D"]
 collision_layer = 16
