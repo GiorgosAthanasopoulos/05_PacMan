@@ -1,6 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://cxg0o0f5qeui5"]
+[gd_scene load_steps=30 format=3 uid="uid://cxg0o0f5qeui5"]
 
 [ext_resource type="Texture2D" uid="uid://daaovuw35iob2" path="res://assets/sprites/ghosts/blinky/blinky.png" id="1_5j7ve"]
+[ext_resource type="Script" uid="uid://cyxxdaen22tmb" path="res://scripts/characters/blinky/blinky.gd" id="1_d38h7"]
 [ext_resource type="Texture2D" uid="uid://c31qy8d6j1a3u" path="res://assets/sprites/ghosts/eyes/eyes.png" id="1_xn5ys"]
 [ext_resource type="Texture2D" uid="uid://wfh7wwj1m0rc" path="res://assets/sprites/ghosts/scared/scared.png" id="2_r0yq3"]
 [ext_resource type="Texture2D" uid="uid://dqg0huygqhwnx" path="res://assets/sprites/ghosts/scared_wearing/scared_wearing.png" id="3_kc0md"]
@@ -198,6 +199,7 @@ animations = [{
 [node name="Blinky" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 7
+script = ExtResource("1_d38h7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yv8c5")
@@ -208,4 +210,3 @@ animation = &"idle"
 
 [node name="Eyes" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d38h7")
-frame = 3

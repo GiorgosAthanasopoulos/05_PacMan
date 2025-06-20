@@ -16,7 +16,6 @@
 
 ## Powerups
 ### Power pellet
-- Add the “power pellet” mode.
 - When Pac-man eats the pellet, the ghosts will turn blue (scared), and will scatter.
 - Pac-Man can eat the ghosts.
 - After a timer elapses, the ghosts will flash white, then return to normal.

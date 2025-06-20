@@ -32,7 +32,7 @@ func _ready() -> void:
         print('Failed to connect cherry_eaten to _increase_score in level_1.gd: ', error_string(error))
 
 
-func _on_power_pellet_eaten(score: int) -> void:
+func _on_power_pellet_eaten(score: int, _time: float) -> void:
     # TODO: do i have to do smth about the power pellet consumption? (timer/ghosts)
     #
     _increase_score(score)
