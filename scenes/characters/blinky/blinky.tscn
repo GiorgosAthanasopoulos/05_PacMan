@@ -210,3 +210,4 @@ animation = &"idle"
 
 [node name="Eyes" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d38h7")
+frame = 3
