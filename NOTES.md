@@ -1,6 +1,3 @@
-# Lifes
-- After 10k score give player another life
-
 # Powerups
 - Level / Powerup / Score
     - 1	Cherry	100
