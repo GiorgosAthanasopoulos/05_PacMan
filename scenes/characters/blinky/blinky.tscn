@@ -196,6 +196,8 @@ animations = [{
 }]
 
 [node name="Blinky" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yv8c5")
@@ -204,6 +206,6 @@ shape = SubResource("RectangleShape2D_yv8c5")
 sprite_frames = SubResource("SpriteFrames_uj7vb")
 animation = &"idle"
 
-[node name="s" type="AnimatedSprite2D" parent="."]
+[node name="Eyes" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d38h7")
 frame = 3
