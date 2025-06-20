@@ -3,7 +3,6 @@
 - There is a tunnel that allows Pac-Man and the ghosts to wrap across the screen, appearing on the other side.
 
 ## Pacman
-- Create Pac-Man himself.
 - He should be able to move in four directions through the maze.
 - When Pac-Man collides with a dot, he will eat it, increasing the score.
 
