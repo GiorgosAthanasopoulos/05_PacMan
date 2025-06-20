@@ -1,6 +1,5 @@
 # TODOs
 ## Map
-- Place a score and high score counter above the level, and a life counter below.
 - The maze operates on a grid.
 - There is a tunnel that allows Pac-Man and the ghosts to wrap across the screen, appearing on the other side.
 - Fill the maze with dots and four large dots (Power Pellets). Each cell in the grid will contain a dot or power pellet.
