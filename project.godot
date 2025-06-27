@@ -1,0 +1,66 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="05_PacMan"
+config/description="Classic PacMan clone."
+config/version="1.0.0"
+run/main_scene="uid://b57684r5jlyqt"
+config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
+config/icon="uid://kh3dg67qsglh"
+
+[autoload]
+
+Events="*res://scripts/globals/Events.cs"
+
+[debug]
+
+file_logging/enable_file_logging=true
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/inferred_declaration=1
+gdscript/warnings/unsafe_property_access=1
+gdscript/warnings/unsafe_method_access=1
+gdscript/warnings/unsafe_cast=1
+gdscript/warnings/unsafe_call_argument=1
+gdscript/warnings/return_value_discarded=1
+shader_language/warnings/treat_warnings_as_errors=true
+
+[display]
+
+window/size/viewport_width=448
+window/size/viewport_height=592
+window/size/resizable=false
+window/stretch/mode="viewport"
+
+[dotnet]
+
+project/assembly_name="05_PacMan"
+
+[gui]
+
+theme/custom_font="uid://niv8ntbow0bv"
+
+[layer_names]
+
+2d_physics/layer_1="map"
+2d_physics/layer_2="powerups"
+2d_physics/layer_3="pacman"
+2d_physics/layer_4="ghosts"
+
+[physics]
+
+2d/run_on_separate_thread=true
+3d/run_on_separate_thread=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccopj5lbdsdiv"]
+
+[ext_resource type="Texture2D" uid="uid://ho1rdtgjo1f1" path="res://assets/sprites/pacman/pacman.png" id="1_071um"]
+
+[node name="LifeCounter" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_071um")
+region_enabled = true
+region_rect = Rect2(0, 0, 15, 16)

@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsluetyat5jfw"]
+
+[ext_resource type="Texture2D" uid="uid://ho1rdtgjo1f1" path="res://assets/sprites/pacman/pacman.png" id="1_m46f8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m46f8"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m46f8"]
+atlas = ExtResource("1_m46f8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5urp"]
+atlas = ExtResource("1_m46f8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4j7uc"]
+atlas = ExtResource("1_m46f8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vkb56"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m46f8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5urp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4j7uc")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[node name="Pacman" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_m46f8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vkb56")
+animation = &"idle"

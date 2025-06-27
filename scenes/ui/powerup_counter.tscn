@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://hrb18ivkws50"]
+
+[ext_resource type="Texture2D" uid="uid://d11he8ms5pc6e" path="res://assets/sprites/powerups/cherry/cherry.png" id="1_ojgb4"]
+
+[node name="PowerupCounter" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_ojgb4")

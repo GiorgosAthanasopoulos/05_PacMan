@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://co6vxrefmdr6j"]
+
+[ext_resource type="Script" uid="uid://d1m7fkwuuk7o7" path="res://scripts/powerups/Dot.cs" id="1_oge2q"]
+[ext_resource type="Texture2D" uid="uid://camhdq2q1chju" path="res://assets/sprites/powerups/dot/dot.png" id="1_x8bjy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ycbj"]
+size = Vector2(8, 8)
+
+[node name="Dot" type="Area2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_oge2q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2ycbj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_x8bjy")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,149 @@
+[gd_scene load_steps=6 format=3 uid="uid://b57684r5jlyqt"]
+
+[ext_resource type="Theme" uid="uid://dotoetu61uyxg" path="res://resources/themes/main theme.tres" id="1_4tcl0"]
+[ext_resource type="Script" uid="uid://dbnukg8kxskyc" path="res://scripts/levels/Level1.cs" id="1_dywbp"]
+[ext_resource type="PackedScene" uid="uid://cukc3prwsf2ge" path="res://scenes/maps/map1.tscn" id="1_x6ivy"]
+[ext_resource type="PackedScene" uid="uid://ccopj5lbdsdiv" path="res://scenes/ui/life_counter.tscn" id="2_bfxgj"]
+[ext_resource type="PackedScene" uid="uid://hrb18ivkws50" path="res://scenes/ui/powerup_counter.tscn" id="3_dywbp"]
+
+[node name="Level1" type="Node2D" node_paths=PackedStringArray("score1Label", "score2Label", "highScoreLabel")]
+script = ExtResource("1_dywbp")
+score1Label = NodePath("UI/ScoreRow/GridContainer/1UpLabel")
+score2Label = NodePath("UI/ScoreRow/GridContainer3/2UpLabel")
+highScoreLabel = NodePath("UI/ScoreRow/GridContainer2/HighScoreLabel")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="ScoreRow" type="GridContainer" parent="UI"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.081
+offset_bottom = 2.0480003
+columns = 3
+
+[node name="GridContainer" type="GridContainer" parent="UI/ScoreRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UI/ScoreRow/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_4tcl0")
+theme_override_font_sizes/font_size = 20
+text = "1UP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1UpLabel" type="Label" parent="UI/ScoreRow/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_4tcl0")
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer2" type="GridContainer" parent="UI/ScoreRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UI/ScoreRow/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_4tcl0")
+theme_override_font_sizes/font_size = 20
+text = "HIGH SCORE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="UI/ScoreRow/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_4tcl0")
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer3" type="GridContainer" parent="UI/ScoreRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UI/ScoreRow/GridContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_4tcl0")
+theme_override_font_sizes/font_size = 20
+text = "2UP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2UpLabel" type="Label" parent="UI/ScoreRow/GridContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_4tcl0")
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LifePowerupRow" type="GridContainer" parent="UI"]
+anchors_preset = -1
+anchor_top = 0.919
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.048034668
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="GridContainer" type="GridContainer" parent="UI/LifePowerupRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="LifeCounter" parent="UI/LifePowerupRow/GridContainer" instance=ExtResource("2_bfxgj")]
+position = Vector2(24, 24)
+
+[node name="LifeCounter2" parent="UI/LifePowerupRow/GridContainer" instance=ExtResource("2_bfxgj")]
+position = Vector2(96, 24)
+
+[node name="LifeCounter3" parent="UI/LifePowerupRow/GridContainer" instance=ExtResource("2_bfxgj")]
+position = Vector2(176, 24)
+
+[node name="GridContainer2" type="GridContainer" parent="UI/LifePowerupRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="PowerupCounter" parent="UI/LifePowerupRow/GridContainer2" instance=ExtResource("3_dywbp")]
+position = Vector2(72, 24)
+
+[node name="PowerupCounter2" parent="UI/LifePowerupRow/GridContainer2" instance=ExtResource("3_dywbp")]
+position = Vector2(158, 24)
+
+[node name="Map1" parent="." instance=ExtResource("1_x6ivy")]
