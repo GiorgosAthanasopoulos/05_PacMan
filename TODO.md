@@ -1,13 +1,5 @@
-- Create the Pac-Man maze.
-- Place a score and high score counter above the level, and a life counter below.
-- The maze operates on a grid.
-- There is a tunnel that allows Pac-Man and the ghosts to wrap across the screen, appearing on the other side.
-- Fill the maze with dots and four large dots (Power Pellets).
-- Each cell in the grid will contain a dot or power pellet.
-- Create Pac-Man himself. He should be able to move in four directions through the maze.
-- When Pac-Man collides with a dot, he will eat it, increasing the score.
+- Pacman should be able to move in four directions through the maze.
 
-- Add four ghosts.
     - They will chase Pac-Man through the level.
     - The ghosts start in a “pen” and are released after enough dots are eaten.
     - Each ghost will cycle between “chase mode” and “scatter mode.”
@@ -51,7 +43,7 @@
     - intro
     - interlevel intro
 
-- Save/Load settings/highscores
+- Save/Load settings
 
 - Level / Powerup / Score
     - 1	Cherry	100

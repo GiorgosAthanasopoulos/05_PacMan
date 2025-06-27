@@ -20,6 +20,7 @@ config/icon="uid://kh3dg67qsglh"
 [autoload]
 
 Events="*res://scripts/globals/Events.cs"
+Settings="*res://scripts/globals/Settings.cs"
 
 [debug]
 
