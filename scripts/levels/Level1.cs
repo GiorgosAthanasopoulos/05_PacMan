@@ -24,7 +24,7 @@ public partial class Level1 : Node2D
     public int StrawberryEatenScore = 300, OrangeEatenScore = 500, AppleEatenScore = 700,
                 MelonEatenScore = 1000, GalaxianEatenScore = 2000, BellEatenScore = 3000, KeyEatenScore = 5000;
     [Export]
-    public int BlinkyWakeupScore = 20;
+    public int BlinkyWakeupScore = 20, PinkyWakeupScore = 100; // TODO: check pinky wakeup score with gpt
     [Export]
     public int MaxLifes = 3;
     private int lifes;
@@ -57,6 +57,10 @@ public partial class Level1 : Node2D
         {
             // TODO: increase score based on how many ghosts have died in current scared state
         };
+        Events.PinkyDied += () =>
+        {
+            // TODO: increase score based on how many ghosts have died in current scared state
+        };
 
         Settings.LoadSettings();
         SetHighScore(Settings.HighScore);
@@ -85,13 +89,11 @@ public partial class Level1 : Node2D
             score1Label.Text = score1.ToString();
 
             if (score1 >= BlinkyWakeupScore)
-            {
                 Events.EmitBlinkyWakeupScoreHit();
-            }
+            if (score1 >= PinkyWakeupScore)
+                Events.EmitPinkyWakeupScoreHit();
             if (score1 >= ExtraLifeScoreThreshold)
-            {
                 UpdateLifes(1);
-            }
         }
         else if (p_player == 2)
         {
@@ -99,9 +101,11 @@ public partial class Level1 : Node2D
             score2Label.Text = score2.ToString();
 
             if (score2 >= BlinkyWakeupScore)
-            {
                 Events.EmitBlinkyWakeupScoreHit();
-            }
+            if (score1 >= PinkyWakeupScore)
+                Events.EmitPinkyWakeupScoreHit();
+            if (score1 >= ExtraLifeScoreThreshold)
+                    UpdateLifes(1);
         }
     }
 

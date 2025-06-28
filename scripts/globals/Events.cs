@@ -8,9 +8,14 @@ public partial class Events : Node
     public static event Action DotEaten;
     public static event Action PowerPelletEaten;
     public static event Action CherryEaten;
+
     public static event Action BlinkyWakeupScoreHit;
-    public static event Action PacmanDied;
     public static event Action BlinkyDied;
+
+    public static event Action PinkyDied;
+    public static event Action PinkyWakeupScoreHit;
+
+    public static event Action PacmanDied;
 
     public static void EmitDotEaten()
     {
@@ -37,8 +42,18 @@ public partial class Events : Node
         PacmanDied?.Invoke();
     }
 
-    public static void EmitBlinyDied()
+    public static void EmitBlinkyDied()
     {
         BlinkyDied?.Invoke();
+    }
+
+    public static void EmitPinkyDied()
+    {
+        PinkyDied?.Invoke();
+    }
+
+    public static void EmitPinkyWakeupScoreHit()
+    {
+        PinkyWakeupScoreHit?.Invoke();
     }
 }

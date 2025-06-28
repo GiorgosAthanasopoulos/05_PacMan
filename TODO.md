@@ -1,4 +1,3 @@
-    - Pink ghost “Pinky” will try to get 4 tiles in front of Pac-Man.
     - Blue ghost “Inky” will target a special position.
         - Draw a line from Blinky’s position to the cell two tiles in front of Pac-Man, then double the length of the line.
         - That is Inky’s target position.
