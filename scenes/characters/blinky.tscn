@@ -1,6 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://byybvo2g7cu7a"]
+[gd_scene load_steps=31 format=3 uid="uid://byybvo2g7cu7a"]
 
 [ext_resource type="Texture2D" uid="uid://c0lqq5o8itp30" path="res://assets/sprites/ghosts/eyes_scared/eyes_scared.png" id="1_1mary"]
+[ext_resource type="Script" uid="uid://c5ab6nla6iotp" path="res://scripts/characters/Blinky.cs" id="1_8o5v0"]
 [ext_resource type="Texture2D" uid="uid://cff0weicaxj6k" path="res://assets/sprites/ghosts/blinky/blinky.png" id="1_44dep"]
 [ext_resource type="Texture2D" uid="uid://cvw3x8ekiq1uj" path="res://assets/sprites/ghosts/eyes/eyes.png" id="1_sui20"]
 [ext_resource type="Texture2D" uid="uid://c331xt5yrbnba" path="res://assets/sprites/ghosts/scared/scared.png" id="2_8o5v0"]
@@ -195,9 +196,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8o5v0"]
+size = Vector2(16, 16)
+
 [node name="Blinky" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 5
+script = ExtResource("1_8o5v0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_poiiw")
@@ -207,5 +212,22 @@ sprite_frames = SubResource("SpriteFrames_poiiw")
 animation = &"idle"
 
 [node name="Eyes" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_1mary")
 frame = 3
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 0.1
+target_desired_distance = 0.1
+path_max_distance = 16.0
+path_postprocessing = 1
+debug_enabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_8o5v0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

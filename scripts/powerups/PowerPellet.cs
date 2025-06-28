@@ -5,9 +5,10 @@ namespace PacMan;
 public partial class PowerPellet : Area2D
 {
 #pragma warning disable IDE1006 // Naming Styles
-    public static void _on_body_entered(Node2D body)
+    public void _on_body_entered(Node2D p_body)
     {
         Events.EmitPowerPelletEaten();
+        QueueFree();
     }
 #pragma warning restore IDE1006 // Naming Styles
 }

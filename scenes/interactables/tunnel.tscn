@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://bftdrh8euprup" path="res://scripts/interactables/Tunnel.cs" id="1_rp361"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b8vxq"]
-size = Vector2(16, 16)
+size = Vector2(12, 12)
 
 [node name="Tunnel" type="Area2D"]
+collision_layer = 16
+collision_mask = 4
 script = ExtResource("1_rp361")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

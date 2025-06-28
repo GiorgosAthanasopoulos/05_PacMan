@@ -12,9 +12,9 @@ public partial class Tunnel : Node
     public int LeftTeleportPosition = 8 + 16 * 2; // two tiles right of left tunnel
 
 #pragma warning disable IDE1006 // Naming Styles
-    public void _on_body_entered(Node2D body)
+    public void _on_body_entered(Node2D p_body)
     {
-        body.GlobalPosition = body.GlobalPosition with { X = IsLeftTunnel ? RightTeleportPosition : LeftTeleportPosition };
+        p_body.GlobalPosition = p_body.GlobalPosition with { X = IsLeftTunnel ? RightTeleportPosition : LeftTeleportPosition };
     }
 #pragma warning restore IDE1006 // Naming Styles
 }

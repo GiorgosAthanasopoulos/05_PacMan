@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ycbj"]
 size = Vector2(8, 8)
 
-[node name="Dot" type="Area2D"]
+[node name="Dot" type="Area2D" groups=["Dots"]]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_oge2q")
