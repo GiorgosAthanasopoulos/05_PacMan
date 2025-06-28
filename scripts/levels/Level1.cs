@@ -3,6 +3,16 @@ using Godot;
 
 namespace PacMan;
 
+// TODO: after eating enough dots spawn 2 special powerups depending on level
+// NOTE: they disappear after a while if you dont eat them (ask gpt how long they stay)
+//       - strawberry 2
+//       - orange 3,4
+//       - apple 5,6
+//       - melon 7,8
+//       - galaxian 9,10
+//       - bell 11,12
+//       - key 13+
+
 public partial class Level1 : Node2D
 {
     [Export]
@@ -10,6 +20,9 @@ public partial class Level1 : Node2D
     private int score1 = 0, score2 = 0, highScore = 0;
     [Export]
     public int DotEatenScore = 10, PowerPelletEatenScore = 50, CherryEatenScore = 100;
+    [Export]
+    public int StrawberryEatenScore = 300, OrangeEatenScore = 500, AppleEatenScore = 700,
+                MelonEatenScore = 1000, GalaxianEatenScore = 2000, BellEatenScore = 3000, KeyEatenScore = 5000;
     [Export]
     public int BlinkyWakeupScore = 20;
     [Export]

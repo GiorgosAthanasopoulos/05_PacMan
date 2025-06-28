@@ -13,7 +13,7 @@ config_version=5
 config/name="05_PacMan"
 config/description="Classic PacMan clone."
 config/version="1.0.0"
-run/main_scene="uid://b57684r5jlyqt"
+run/main_scene="uid://cxm6aav5d1luu"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="uid://kh3dg67qsglh"
 
