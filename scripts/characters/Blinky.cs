@@ -72,7 +72,6 @@ public partial class Blinky : CharacterBody2D
 
         Events.PowerPelletEaten += () =>
         {
-
             justScared = true;
             scaredTime = ScaredInterval;
         };
@@ -299,7 +298,7 @@ public partial class Blinky : CharacterBody2D
         if (p_body.IsInGroup(PacManGroup))
             if (scaredTime > 0.0)
             {
-                Events.EmitBlinyDied(); //  TODO: spawn eyes from current location and go to pen after that respawn blinky
+                Events.EmitBlinkyDied(); //  TODO: spawn eyes from current location and go to pen after that respawn blinky
                 QueueFree();
             }
             else
