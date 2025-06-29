@@ -40,18 +40,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Pacman" type="CharacterBody2D" node_paths=PackedStringArray("animatedSprite") groups=["PacMan"]]
+[node name="Pacman" type="CharacterBody2D" groups=["Pacman"]]
 collision_layer = 4
 collision_mask = 59
 script = ExtResource("1_j5urp")
-animatedSprite = NodePath("AnimatedSprite2D")
-SpriteRotationMoveDirection = Dictionary[int, int]({
-0: 0,
-1: 270,
-2: 180,
-3: 90,
-4: 0
-})
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_m46f8")

@@ -47,9 +47,9 @@ project/assembly_name="05_PacMan"
 [global_group]
 
 Map=""
-PacMan=""
 Dots=""
 Gates=""
+Pacman=""
 
 [gui]
 

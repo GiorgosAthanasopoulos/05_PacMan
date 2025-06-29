@@ -16,7 +16,7 @@ public partial class Character : CharacterBody2D
     }
 
 
-    protected bool CanMoveDirection(bool p_pacman, String PacManGroup = "Pacman")
+    protected bool CanMoveDirection(bool p_pacman)
     {
         PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
         Vector2 target = Vector2.Zero;
@@ -38,7 +38,7 @@ public partial class Character : CharacterBody2D
         if (result.Count != 0)
         {
             Node2D collider = (Node2D)result["collider"];
-            return collider.IsInGroup(PacManGroup) || collider.IsInGroup("Gates");
+            return collider.IsInGroup("Pacman") || collider.IsInGroup("Gates");
         }
         return true;
     }
