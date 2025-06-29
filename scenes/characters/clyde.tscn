@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://drlc11flfeu3q"]
+[gd_scene load_steps=30 format=3 uid="uid://drlc11flfeu3q"]
 
 [ext_resource type="Texture2D" uid="uid://cvw3x8ekiq1uj" path="res://assets/sprites/ghosts/eyes/eyes.png" id="1_47ye3"]
 [ext_resource type="Texture2D" uid="uid://bljcb0i5h4ehm" path="res://assets/sprites/ghosts/clyde/clyde.png" id="1_411ym"]
+[ext_resource type="Script" uid="uid://v3svoc76gujq" path="res://scripts/characters/Clyde.cs" id="1_glbyl"]
 [ext_resource type="Texture2D" uid="uid://c0lqq5o8itp30" path="res://assets/sprites/ghosts/eyes_scared/eyes_scared.png" id="2_cr8c7"]
 [ext_resource type="Texture2D" uid="uid://c331xt5yrbnba" path="res://assets/sprites/ghosts/scared/scared.png" id="2_glbyl"]
 [ext_resource type="Texture2D" uid="uid://dkcpp8txuvij0" path="res://assets/sprites/ghosts/scared_wearing/scared_wearing.png" id="3_j6umr"]
@@ -198,6 +199,7 @@ animations = [{
 [node name="Clyde" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 5
+script = ExtResource("1_glbyl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_juq0u")

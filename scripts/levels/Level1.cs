@@ -24,7 +24,7 @@ public partial class Level1 : Node2D
     public int StrawberryEatenScore = 300, OrangeEatenScore = 500, AppleEatenScore = 700,
                 MelonEatenScore = 1000, GalaxianEatenScore = 2000, BellEatenScore = 3000, KeyEatenScore = 5000;
     [Export]
-    public int BlinkyWakeupScore = 20, PinkyWakeupScore = 100; // TODO: check pinky wakeup score with gpt
+    public int BlinkyWakeupScore = 20, PinkyWakeupScore = 100, InkyWakeupScore = 200, ClydeWakeupScore = 400; // TODO: check pinky wakeup score with gpt
     [Export]
     public int MaxLifes = 3;
     private int lifes;
@@ -61,6 +61,14 @@ public partial class Level1 : Node2D
         {
             // TODO: increase score based on how many ghosts have died in current scared state
         };
+        Events.InkyDied += () =>
+        {
+            // TODO: increase score based on how many ghosts have died in current scared state
+        };
+        Events.ClydeDied += () =>
+        {
+            // TODO: increase score based on how many ghosts have died in current scared state
+        };
 
         Settings.LoadSettings();
         SetHighScore(Settings.HighScore);
@@ -92,6 +100,10 @@ public partial class Level1 : Node2D
                 Events.EmitBlinkyWakeupScoreHit();
             if (score1 >= PinkyWakeupScore)
                 Events.EmitPinkyWakeupScoreHit();
+            if (score1 >= InkyWakeupScore)
+                Events.EmitInkyWakeupScoreHit();
+            if (score1 >= ClydeWakeupScore)
+                Events.EmitClydeWakeupScoreHit();
             if (score1 >= ExtraLifeScoreThreshold)
                 UpdateLifes(1);
         }
@@ -104,8 +116,11 @@ public partial class Level1 : Node2D
                 Events.EmitBlinkyWakeupScoreHit();
             if (score1 >= PinkyWakeupScore)
                 Events.EmitPinkyWakeupScoreHit();
-            if (score1 >= ExtraLifeScoreThreshold)
-                    UpdateLifes(1);
+            if (score2 >= ExtraLifeScoreThreshold)
+                Events.EmitInkyWakeupScoreHit();
+            if (score2 >= ClydeWakeupScore)
+                Events.EmitClydeWakeupScoreHit();
+            UpdateLifes(1);
         }
     }
 

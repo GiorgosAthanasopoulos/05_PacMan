@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://c5lj54gyi5jb7"]
+[gd_scene load_steps=30 format=3 uid="uid://c5lj54gyi5jb7"]
 
 [ext_resource type="Texture2D" uid="uid://c0lqq5o8itp30" path="res://assets/sprites/ghosts/eyes_scared/eyes_scared.png" id="1_1l6rp"]
 [ext_resource type="Texture2D" uid="uid://dib0n4ejpxgrg" path="res://assets/sprites/ghosts/inky/inky.png" id="1_77yyj"]
 [ext_resource type="Texture2D" uid="uid://cvw3x8ekiq1uj" path="res://assets/sprites/ghosts/eyes/eyes.png" id="1_i2eo3"]
+[ext_resource type="Script" uid="uid://chl57ytdmkbrt" path="res://scripts/characters/Inky.cs" id="1_shtp8"]
 [ext_resource type="Texture2D" uid="uid://c331xt5yrbnba" path="res://assets/sprites/ghosts/scared/scared.png" id="2_rqt8j"]
 [ext_resource type="Texture2D" uid="uid://dkcpp8txuvij0" path="res://assets/sprites/ghosts/scared_wearing/scared_wearing.png" id="3_h0v4s"]
 
@@ -198,6 +199,7 @@ animations = [{
 [node name="Inky" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 5
+script = ExtResource("1_shtp8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tu12x")

@@ -15,6 +15,12 @@ public partial class Events : Node
     public static event Action PinkyDied;
     public static event Action PinkyWakeupScoreHit;
 
+    public static event Action InkyDied;
+    public static event Action InkyWakeupScoreHit;
+
+    public static event Action ClydeDied;
+    public static event Action ClydeWakeupScoreHit;
+
     public static event Action PacmanDied;
 
     public static void EmitDotEaten()
@@ -55,5 +61,25 @@ public partial class Events : Node
     public static void EmitPinkyWakeupScoreHit()
     {
         PinkyWakeupScoreHit?.Invoke();
+    }
+
+    public static void EmitInkyDied()
+    {
+        InkyDied?.Invoke();
+    }
+
+    public static void EmitInkyWakeupScoreHit()
+    {
+        InkyWakeupScoreHit?.Invoke();
+    }
+
+    public static void EmitClydeDied()
+    {
+        ClydeDied?.Invoke();
+    }
+
+    public static void EmitClydeWakeupScoreHit()
+    {
+        ClydeWakeupScoreHit?.Invoke();
     }
 }
