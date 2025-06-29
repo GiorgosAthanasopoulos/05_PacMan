@@ -3,6 +3,9 @@ using Godot;
 
 namespace PacMan;
 
+// TODO: sometimes the ghosts get desync wearing scared/wearing times
+// TODO: prob need to remove ghost layer from ghost scene cuz they collide with each other
+
 public partial class Ghost : Character
 {
     private AnimatedSprite2D GhostSprite, Eyes;
