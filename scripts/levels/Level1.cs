@@ -27,7 +27,7 @@ public partial class Level1 : Node2D
     public int StrawberryEatenScore = 300, OrangeEatenScore = 500, AppleEatenScore = 700,
                 MelonEatenScore = 1000, GalaxianEatenScore = 2000, BellEatenScore = 3000, KeyEatenScore = 5000;
     [Export]
-    public int BlinkyWakeupScore = 1 * 10, PinkyWakeupScore = 5 * 10, InkyWakeupScore = 30 * 10, ClydeWakeupScore = 60 * 100;
+    public int BlinkyWakeupScore = 1 * 10, PinkyWakeupScore = 5 * 10, InkyWakeupScore = 30 * 10, ClydeWakeupScore = 60 * 10;
     [Export]
     public int MaxLifes = 3;
     private int lifes;
