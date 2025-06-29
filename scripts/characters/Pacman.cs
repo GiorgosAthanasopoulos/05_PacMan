@@ -3,9 +3,6 @@ using Godot;
 
 namespace PacMan;
 
-// TODO: play pacman moving sfx
-// TODO: FIX: Something broken with ghost collisions (apart from blinky)
-
 public partial class Pacman : Character
 {
     [Export]
@@ -22,14 +19,16 @@ public partial class Pacman : Character
 
         Events.PacmanDied += () =>
         {
-            // TODO: play pacman died sfx
-            QueueFree(); // TODO: respawn in original position
+            Audio.PlaySFX(Audio.Death);
+            GlobalPosition = new Vector2(14, 26) * 16 + new Vector2(8, 8);
+            direction = Direction.NONE;
+            animatedSprite.Animation = "idle";
         };
     }
 
     public override void _PhysicsProcess(double p_delta)
     {
-        if (paused)
+        if (paused || IsQueuedForDeletion())
             return;
 
         HandleInput();

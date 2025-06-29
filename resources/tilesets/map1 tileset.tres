@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=16 format=3 uid="uid://cnuh5mkltm8wn"]
 
 [ext_resource type="Texture2D" uid="uid://br0x6kw8fb2mu" path="res://assets/sprites/map/map.png" id="1_bb6vm"]
-[ext_resource type="PackedScene" uid="uid://d2oigq8l06bhm" path="res://scenes/interactables/gate.tscn" id="2_6cnh0"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/gate.tscn" id="2_6cnh0"]
 [ext_resource type="PackedScene" uid="uid://5hfa4jx7jsr2" path="res://scenes/powerups/power_pellet.tscn" id="3_7kx47"]
 [ext_resource type="PackedScene" uid="uid://co6vxrefmdr6j" path="res://scenes/powerups/dot.tscn" id="3_ngkhq"]
 [ext_resource type="PackedScene" uid="uid://bu5lvfx6yrjcc" path="res://scenes/powerups/cherry.tscn" id="4_7kx47"]

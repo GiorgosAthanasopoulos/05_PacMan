@@ -90,8 +90,8 @@ public partial class Ghost : Character
         if (ghostType == GhostType.INKY)
         {
             ScatterCorner = Corner.BOTTOM_LEFT;
-            MoveInterval = .25f; // todo: change movement speed for inky
-            MoveIntervalScared = .5f;
+            MoveInterval = .27f;
+            MoveIntervalScared = .54f;
             ghostType = GhostType.INKY;
             IdleAnimation = "idle_inky";
             MovingAnimation = "moving_inky";
@@ -101,7 +101,7 @@ public partial class Ghost : Character
         if (ghostType == GhostType.PINKY)
         {
             ScatterCorner = Corner.TOP_RIGHT;
-            MoveInterval = .25f; // TODO: change movement speed for pinky
+            MoveInterval = .25f;
             MoveIntervalScared = .5f;
             ghostType = GhostType.PINKY;
             IdleAnimation = "idle_pinky";
@@ -112,8 +112,8 @@ public partial class Ghost : Character
         if (ghostType == GhostType.CLYDE)
         {
             ScatterCorner = Corner.BOTTOM_RIGHT;
-            MoveInterval = .25f; // TODO: change movement speed for clyde
-            MoveIntervalScared = .5f;
+            MoveInterval = .3f;
+            MoveIntervalScared = .6f;
             ghostType = GhostType.CLYDE;
             IdleAnimation = "idle_clyde";
             MovingAnimation = "moving_clyde";
@@ -236,9 +236,9 @@ public partial class Ghost : Character
         if (p_body.IsInGroup("Pacman"))
             if (scaredTime > 0.0)
             {
-                // TODO: play ghost died sfx
-                // TODO: play eyes returning to pen sfx
+                Audio.PlaySFX(Audio.EatGhost);
                 //  TODO: spawn eyes from current location and go to pen after that respawn ghost
+                // NOTE: eyes should go faster than the ghost
                 if (ghostType == GhostType.BLINKY)
                     Events.EmitBlinkyDied();
                 else if (ghostType == GhostType.INKY)
@@ -250,7 +250,17 @@ public partial class Ghost : Character
                 QueueFree();
             }
             else
+            {
+                if (ghostType == GhostType.BLINKY)
+                    GlobalPosition = new Vector2(14, 14) * 16 + new Vector2(8, 8);
+                else if (ghostType == GhostType.INKY)
+                    GlobalPosition = new Vector2(11, 18) * 16 + new Vector2(8, 8);
+                else if (ghostType == GhostType.PINKY)
+                    GlobalPosition = new Vector2(14, 18) * 16 + new Vector2(8, 8);
+                else if (ghostType == GhostType.CLYDE)
+                    GlobalPosition = new Vector2(16, 18) * 16 + new Vector2(8, 8);
                 Events.EmitPacmanDied();
+            }
     }
 
     protected Vector2I ComputeNextPosition()

@@ -4,7 +4,7 @@ namespace PacMan;
 
 public partial class SettingsMenu : Control
 {
-    public override void _Process(double delta)
+    public override void _Process(double p_delta)
     {
         if (Input.IsActionJustPressed("ui_cancel"))
         {

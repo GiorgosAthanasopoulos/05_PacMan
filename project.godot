@@ -17,10 +17,15 @@ run/main_scene="uid://cxm6aav5d1luu"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="uid://kh3dg67qsglh"
 
+[audio]
+
+buses/default_bus_layout="uid://bmq1jjcywhpls"
+
 [autoload]
 
 Events="*res://scripts/globals/Events.cs"
 Settings="*res://scripts/globals/Settings.cs"
+Audio="*res://scripts/globals/Audio.cs"
 
 [debug]
 
@@ -47,6 +52,7 @@ project/assembly_name="05_PacMan"
 [global_group]
 
 Map=""
+PacMan=""
 Dots=""
 Gates=""
 Pacman=""

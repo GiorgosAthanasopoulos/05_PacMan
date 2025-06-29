@@ -13,10 +13,8 @@ namespace PacMan;
 //       - bell 11,12
 //       - key 13+
 
-// TODO: play intro sfx
-// TODO: play interlevel intro sfx
-// TODO: play bgm
-// TODO: ghosts should be able to go through white gates (pacman shouldn't)
+// TODO: play interlevel intro sfx (requires defining intermissions/levels)
+// TODO: if pacman takes too much time to eat the dots, all ghost should wake up
 
 public partial class Level1 : Node2D
 {
@@ -29,7 +27,7 @@ public partial class Level1 : Node2D
     public int StrawberryEatenScore = 300, OrangeEatenScore = 500, AppleEatenScore = 700,
                 MelonEatenScore = 1000, GalaxianEatenScore = 2000, BellEatenScore = 3000, KeyEatenScore = 5000;
     [Export]
-    public int BlinkyWakeupScore = 20, PinkyWakeupScore = 100, InkyWakeupScore = 200, ClydeWakeupScore = 400; // TODO: check pinky wakeup score with gpt
+    public int BlinkyWakeupScore = 1 * 10, PinkyWakeupScore = 5 * 10, InkyWakeupScore = 30 * 10, ClydeWakeupScore = 60 * 100;
     [Export]
     public int MaxLifes = 3;
     private int lifes;
@@ -41,6 +39,8 @@ public partial class Level1 : Node2D
     public int ExtraLifeScoreThreshold = 10_000;
     [Export]
     public int OneGhostEatenScore = 200, TwoGhostsEatenScore = 400, ThreeGhostsEatenScore = 800, FourGhostsEatenScore = 1600;
+    private int ghostsEaten = 0;
+    private double pelletModeTimer = 0.0f;
 
     private bool paused = false;
     [Export]
@@ -60,24 +60,24 @@ public partial class Level1 : Node2D
                 // TODO: do smth when winning? (sound/visual)
             }
         };
-        Events.PowerPelletEaten += () => { IncreaseScore(PowerPelletEatenScore); };
+        Events.PowerPelletEaten += () => { IncreaseScore(PowerPelletEatenScore); pelletModeTimer = 6.5f; };
         Events.CherryEaten += () => { IncreaseScore(CherryEatenScore); };
-        Events.PacmanDied += () => { UpdateLifes(-1); };
+        Events.PacmanDied += () => { UpdateLifes(-1); }; // TODO: small pause before game start
         Events.BlinkyDied += () =>
         {
-            // TODO: increase score based on how many ghosts have died in current scared state
+            OnGhostDied();
         };
         Events.PinkyDied += () =>
         {
-            // TODO: increase score based on how many ghosts have died in current scared state
+            OnGhostDied();
         };
         Events.InkyDied += () =>
         {
-            // TODO: increase score based on how many ghosts have died in current scared state
+            OnGhostDied();
         };
         Events.ClydeDied += () =>
         {
-            // TODO: increase score based on how many ghosts have died in current scared state
+            OnGhostDied();
         };
 
         Settings.LoadSettings();
@@ -101,12 +101,37 @@ public partial class Level1 : Node2D
         score1Label ??= GetNode<Label>("UI/ScoreRow/GridContainer/1UpLabel");
         highScoreLabel ??= GetNode<Label>("UI/ScoreRow/GridContainer2/HighScoreLabel");
         score2Label ??= GetNode<Label>("UI/ScoreRow/GridContainer3/2UpLabel");
+
+        Audio.PlayBGM(Audio.Intro);
     }
 
-    public override void _Process(double delta)
+    private void OnGhostDied()
+    {
+        ghostsEaten++;
+        if (ghostsEaten == 1)
+            IncreaseScore(OneGhostEatenScore);
+        else if (ghostsEaten == 2)
+            IncreaseScore(TwoGhostsEatenScore);
+        else if (ghostsEaten == 3)
+            IncreaseScore(ThreeGhostsEatenScore);
+        else if (ghostsEaten >= 4)
+        {
+            IncreaseScore(FourGhostsEatenScore);
+            ghostsEaten = 0; // reset after 4th ghost
+        }
+    }
+
+    public override void _Process(double p_delta)
     {
         if (Input.IsActionJustPressed("ui_cancel"))
             TogglePause();
+
+        if (pelletModeTimer > 0.0f)
+        {
+            pelletModeTimer -= p_delta;
+            if (pelletModeTimer <= 0.0f)
+                ghostsEaten = 0;
+        }
     }
 
     private void TogglePause()
@@ -144,7 +169,10 @@ public partial class Level1 : Node2D
             if (score1 >= ClydeWakeupScore)
                 Events.EmitClydeWakeupScoreHit();
             if (score1 >= ExtraLifeScoreThreshold)
+            {
+                Audio.PlaySFX(Audio.ExtraPac);
                 UpdateLifes(1);
+            }
         }
         else if (p_player == 2)
         {
@@ -159,7 +187,11 @@ public partial class Level1 : Node2D
                 Events.EmitInkyWakeupScoreHit();
             if (score2 >= ClydeWakeupScore)
                 Events.EmitClydeWakeupScoreHit();
-            UpdateLifes(1);
+            if (score2 >= ExtraLifeScoreThreshold)
+            {
+                Audio.PlaySFX(Audio.ExtraPac);
+                UpdateLifes(1);
+            }
         }
     }
 
@@ -170,8 +202,6 @@ public partial class Level1 : Node2D
             GD.PushError("Level1.cs: Tried to add/remove more than 1 life at a time!");
             return;
         }
-
-        // TODO: update ui lifes
 
         if (p_life == -1)
         {
