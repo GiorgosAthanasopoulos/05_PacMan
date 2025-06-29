@@ -22,6 +22,8 @@ public partial class Pacman : CharacterBody2D
     private Direction direction = Direction.NONE;
     private double moveTimer = 0.0f;
 
+    private bool enabled = true;
+
     public override void _Ready()
     {
         animatedSprite ??= GetNode<AnimatedSprite2D>("AnimatedSprite2D");
@@ -39,10 +41,22 @@ public partial class Pacman : CharacterBody2D
         {
             QueueFree(); // TODO: respawn in original position
         };
+
+        Events.Paused += () =>
+        {
+            enabled = false;
+        };
+        Events.Unpaused += () =>
+        {
+            enabled = true;
+        };
     }
 
     public override void _PhysicsProcess(double p_delta)
     {
+        if (!enabled)
+            return;
+
         HandleInput();
         ProcessInput(p_delta);
         HandleAnimation();
@@ -66,6 +80,7 @@ public partial class Pacman : CharacterBody2D
         if (moveTimer > 0)
             return;
 
+        // TODO: play pacman moving sfx
         moveTimer = MoveInterval;
         if (CanMoveDirection())
             MoveDirection();

@@ -13,6 +13,11 @@ namespace PacMan;
 //       - bell 11,12
 //       - key 13+
 
+// TODO: play intro sfx
+// TODO: play interlevel intro sfx
+// TODO: play bgm
+// TODO: ghosts should be able to go through white gates (pacman shouldn't)
+
 public partial class Level1 : Node2D
 {
     [Export]
@@ -36,6 +41,10 @@ public partial class Level1 : Node2D
     public int ExtraLifeScoreThreshold = 10_000;
     [Export]
     public int OneGhostEatenScore = 200, TwoGhostsEatenScore = 400, ThreeGhostsEatenScore = 800, FourGhostsEatenScore = 1600;
+
+    private bool paused = false;
+    [Export]
+    public CanvasLayer PauseMenu;
 
     public override void _Ready()
     {
@@ -78,6 +87,35 @@ public partial class Level1 : Node2D
         Life1 = GetNode<Sprite2D>("UI/LifePowerupRow/GridContainer/LifeCounter");
         Life2 = GetNode<Sprite2D>("UI/LifePowerupRow/GridContainer/LifeCounter2");
         Life3 = GetNode<Sprite2D>("UI/LifePowerupRow/GridContainer/LifeCounter3");
+
+        PauseMenu = GetNode<CanvasLayer>("PausedMenu");
+
+        Events.Unpaused += () =>
+        {
+            if (paused)
+                TogglePause();
+        };
+
+        // TODO: after restarting, these are not null but at the same time they are dead(discarded) values
+        score1Label ??= GetNode<Label>("UI/ScoreRow/GridContainer/1UpLabel");
+        highScoreLabel ??= GetNode<Label>("UI/ScoreRow/GridContainer2/HighScoreLabel");
+        score2Label ??= GetNode<Label>("UI/ScoreRow/GridContainer3/2UpLabel");
+    }
+
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionJustPressed("ui_cancel"))
+            TogglePause();
+    }
+
+    private void TogglePause()
+    {
+        paused = !paused;
+        PauseMenu.Visible = paused;
+        if (paused)
+            Events.EmitPaused();
+        if (!paused)
+            Events.EmitUnpaused();
     }
 
     private void CheckHighScore()
@@ -145,9 +183,7 @@ public partial class Level1 : Node2D
             lifes -= 1;
 
             if (lifes == 0)
-            {
                 GetTree().ReloadCurrentScene();
-            }
         }
         else if (p_life == 1)
         {

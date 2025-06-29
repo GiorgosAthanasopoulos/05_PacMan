@@ -48,6 +48,8 @@ public partial class Clyde : CharacterBody2D
     public Vector2I TopLeftCorner = new(1, 4), TopRightCorner = new(26, 4), BottomLeftCorner = new(1, 33),
                     BottomRightCorner = new(26, 33);
 
+    private bool paused = false;
+
     enum Direction
     {
         NONE = 0,
@@ -110,6 +112,15 @@ public partial class Clyde : CharacterBody2D
             aStarGrid.SetPointSolid(cell, IsSpotSolid(cell));
 
         Events.ClydeWakeupScoreHit += () => { enabled = true; };
+
+        Events.Paused += () =>
+        {
+            paused = true;
+        };
+        Events.Unpaused += () =>
+        {
+            paused = false;
+        };
     }
 
     private bool IsSpotSolid(Vector2I p_cell)
@@ -119,7 +130,7 @@ public partial class Clyde : CharacterBody2D
 
     public override void _PhysicsProcess(double p_delta)
     {
-        if (!enabled)
+        if (!enabled || paused)
             return;
 
         HandleScared(p_delta);
@@ -301,10 +312,15 @@ public partial class Clyde : CharacterBody2D
         if (p_body.IsInGroup(PacManGroup))
             if (scaredTime > 0.0)
             {
+                // TODO: play clyde died sfx
+                // TODO: play eyes returning to pen sfx
                 Events.EmitClydeDied(); //  TODO: spawn eyes from current location and go to pen after that respawn clyde
                 QueueFree();
             }
             else
+            {
+                // TODO: play pacman died sfx
                 Events.EmitPacmanDied();
+            }
     }
 }

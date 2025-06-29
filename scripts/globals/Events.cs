@@ -23,6 +23,9 @@ public partial class Events : Node
 
     public static event Action PacmanDied;
 
+    public static event Action Paused;
+    public static event Action Unpaused;
+
     public static void EmitDotEaten()
     {
         DotEaten?.Invoke();
@@ -81,5 +84,15 @@ public partial class Events : Node
     public static void EmitClydeWakeupScoreHit()
     {
         ClydeWakeupScoreHit?.Invoke();
+    }
+
+    public static void EmitPaused()
+    {
+        Paused?.Invoke();
+    }
+
+    public static void EmitUnpaused()
+    {
+        Unpaused?.Invoke();
     }
 }

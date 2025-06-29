@@ -3,6 +3,8 @@ using Godot;
 
 namespace PacMan;
 
+// TODO: add settings(volume/diffulty/etc.) and save/load them
+
 public partial class Settings : Node
 {
     private static readonly ConfigFile configFile = new();
