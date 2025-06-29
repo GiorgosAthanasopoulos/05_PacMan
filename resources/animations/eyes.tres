@@ -1,0 +1,73 @@
+[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://dn1tx5yats67d"]
+
+[ext_resource type="Texture2D" uid="uid://cvw3x8ekiq1uj" path="res://assets/sprites/ghosts/eyes/eyes.png" id="1_sh1wr"]
+[ext_resource type="Texture2D" uid="uid://c0lqq5o8itp30" path="res://assets/sprites/ghosts/eyes_scared/eyes_scared.png" id="2_h4hxe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8o5v0"]
+atlas = ExtResource("1_sh1wr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4dq5"]
+atlas = ExtResource("1_sh1wr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seoyq"]
+atlas = ExtResource("1_sh1wr")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl01i"]
+atlas = ExtResource("1_sh1wr")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sui20"]
+atlas = ExtResource("2_h4hxe")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcu7v"]
+atlas = ExtResource("2_h4hxe")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hnew"]
+atlas = ExtResource("2_h4hxe")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44dep"]
+atlas = ExtResource("2_h4hxe")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8o5v0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4dq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_seoyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yl01i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sui20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tcu7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hnew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44dep")
+}],
+"loop": true,
+"name": &"scared",
+"speed": 5.0
+}]

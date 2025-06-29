@@ -53,10 +53,11 @@ public partial class Level1 : Node2D
             IncreaseScore(DotEatenScore);
 
             Godot.Collections.Array<Node> dots = GetTree().GetNodesInGroup(DotGroup);
-            if (dots.Count == 0)
+            if (dots.Count == 1) // queue free after event emittion
             {
                 CheckHighScore();
                 GetTree().ReloadCurrentScene();
+                // TODO: do smth when winning? (sound/visual)
             }
         };
         Events.PowerPelletEaten += () => { IncreaseScore(PowerPelletEatenScore); };
@@ -114,7 +115,7 @@ public partial class Level1 : Node2D
         PauseMenu.Visible = paused;
         if (paused)
             Events.EmitPaused();
-        if (!paused)
+        else
             Events.EmitUnpaused();
     }
 

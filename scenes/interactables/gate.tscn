@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2oigq8l06bhm"]
+
+[ext_resource type="Texture2D" uid="uid://br0x6kw8fb2mu" path="res://assets/sprites/map/map.png" id="1_ykr1b"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ykr1b"]
+rough = true
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ykr1b"]
+size = Vector2(16, 16)
+
+[node name="Gate" type="StaticBody2D" groups=["Gates"]]
+collision_layer = 32
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_ykr1b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ykr1b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ykr1b")
+region_enabled = true
+region_rect = Rect2(0, 160, 16, 16)

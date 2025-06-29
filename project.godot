@@ -49,6 +49,7 @@ project/assembly_name="05_PacMan"
 Map=""
 PacMan=""
 Dots=""
+Gates=""
 
 [gui]
 
@@ -88,6 +89,7 @@ move_right={
 2d_physics/layer_3="pacman"
 2d_physics/layer_4="ghosts"
 2d_physics/layer_5="interactables"
+2d_physics/layer_6="gates"
 
 [physics]
 
