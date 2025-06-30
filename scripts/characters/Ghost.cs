@@ -19,18 +19,23 @@ public partial class Ghost : Character
 
     protected Node2D Pacman;
     protected TileMapLayer Map;
+
     protected bool enabled = false;
 
     [Export]
     protected Corner ScatterCorner;
 
     [Export]
-    public double MoveInterval, MoveIntervalScared;
+    public double MoveInterval, MoveIntervalScared, MoveIntervalEyes = .1f;
 
     [Export]
     protected GhostType ghostType;
 
     private string MovingAnimation, IdleAnimation;
+
+    private bool eyes = false, justEyes = false;
+
+    private Vector2I spawnPosition;
 
     public override void _Ready()
     {
@@ -85,6 +90,7 @@ public partial class Ghost : Character
             IdleAnimation = "idle_blinky";
             MovingAnimation = "moving_blinky";
             GhostSprite.Animation = IdleAnimation;
+            spawnPosition = new Vector2I(14, 14) * 16 + new Vector2I(8, 8);
             Events.BlinkyWakeupScoreHit += () => { enabled = true; };
         }
         if (ghostType == GhostType.INKY)
@@ -96,6 +102,7 @@ public partial class Ghost : Character
             IdleAnimation = "idle_inky";
             MovingAnimation = "moving_inky";
             GhostSprite.Animation = IdleAnimation;
+            spawnPosition = new Vector2I(11, 18) * 16 + new Vector2I(8, 8);
             Events.InkyWakeupScoreHit += () => { enabled = true; };
         }
         if (ghostType == GhostType.PINKY)
@@ -107,6 +114,7 @@ public partial class Ghost : Character
             IdleAnimation = "idle_pinky";
             MovingAnimation = "moving_pinky";
             GhostSprite.Animation = IdleAnimation;
+            spawnPosition = new Vector2I(14, 18) * 16 + new Vector2I(8, 8);
             Events.PinkyWakeupScoreHit += () => { enabled = true; };
         }
         if (ghostType == GhostType.CLYDE)
@@ -118,10 +126,15 @@ public partial class Ghost : Character
             IdleAnimation = "idle_clyde";
             MovingAnimation = "moving_clyde";
             GhostSprite.Animation = IdleAnimation;
+            spawnPosition = new Vector2I(16, 18) * 16 + new Vector2I(8, 8);
             Events.ClydeWakeupScoreHit += () => { enabled = true; };
         }
 
-        Events.PacmanDied += () => { GotoSpawn(); };
+        Events.PacmanDied += () =>
+        {
+            GlobalPosition = spawnPosition;
+            direction = Direction.NONE;
+        };
     }
 
     public override void _PhysicsProcess(double p_delta)
@@ -129,9 +142,30 @@ public partial class Ghost : Character
         if (!enabled || paused)
             return;
 
-        HandleScared(p_delta);
-        HandleAnimation();
+        if (eyes)
+            HandleEyes();
+        else
+        {
+            HandleScared(p_delta);
+            HandleAnimation();
+        }
         HandleMovement(p_delta);
+    }
+
+    private void HandleEyes()
+    {
+        if (!justEyes)
+            return;
+
+        justEyes = false;
+
+        GhostSprite.Visible = false;
+
+        scaredTime = 0.0f;
+        justScared = false;
+
+        wearingTime = 0.0f;
+        justWearing = false;
     }
 
     protected bool IsPointSolid(Vector2I p_cell)
@@ -221,7 +255,12 @@ public partial class Ghost : Character
 
         HandleNavigation();
 
-        moveTimer = scaredTime > 0.0 ? MoveIntervalScared : MoveInterval;
+        moveTimer = MoveInterval;
+        if (scaredTime > 0.0)
+            moveTimer = MoveIntervalScared;
+        else if (eyes)
+            moveTimer = MoveIntervalEyes;
+
         if (CanMoveDirection(false))
             MoveDirection();
     }
@@ -235,12 +274,13 @@ public partial class Ghost : Character
     protected void _on_area_2d_body_entered(Node2D p_body)
 #pragma warning restore IDE1006 // Naming Styles
     {
+        if (eyes)
+            return;
+
         if (p_body.IsInGroup("Pacman"))
             if (scaredTime > 0.0)
             {
                 Audio.PlaySFX(Audio.EatGhost);
-                //  TODO: spawn eyes from current location and go to pen after that respawn ghost
-                // NOTE: eyes should go faster than the ghost
                 if (ghostType == GhostType.BLINKY)
                     Events.EmitBlinkyDied();
                 else if (ghostType == GhostType.INKY)
@@ -249,26 +289,26 @@ public partial class Ghost : Character
                     Events.EmitPinkyDied();
                 else if (ghostType == GhostType.CLYDE)
                     Events.EmitClydeDied();
-                QueueFree();
+                eyes = true;
+                justEyes = true;
             }
             else
                 Events.EmitPacmanDied();
     }
 
-    private void GotoSpawn()
-    {
-        if (ghostType == GhostType.BLINKY)
-            GlobalPosition = new Vector2(14, 14) * 16 + new Vector2(8, 8);
-        else if (ghostType == GhostType.INKY)
-            GlobalPosition = new Vector2(11, 18) * 16 + new Vector2(8, 8);
-        else if (ghostType == GhostType.PINKY)
-            GlobalPosition = new Vector2(14, 18) * 16 + new Vector2(8, 8);
-        else if (ghostType == GhostType.CLYDE)
-            GlobalPosition = new Vector2(16, 18) * 16 + new Vector2(8, 8);
-    }
-
     protected Vector2I ComputeNextPosition()
     {
+        if (eyes)
+        {
+            if (GlobalPosition == spawnPosition)
+            {
+                eyes = false;
+                GhostSprite.Visible = true;
+            }
+
+            return GlobalToIdPos(spawnPosition);
+        }
+
         Vector2I pacmanPos = GlobalToIdPos(Pacman.GlobalPosition);
 
         if (ghostType == GhostType.PINKY) { } // TODO: implement pinky nav
@@ -330,7 +370,7 @@ public partial class Ghost : Character
         BLINKY,
         PINKY,
         INKY,
-        CLYDE
+        CLYDE,
     }
 
     public enum Corner
