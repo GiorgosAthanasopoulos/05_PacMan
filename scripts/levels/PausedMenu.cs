@@ -2,6 +2,9 @@ using Godot;
 
 namespace PacMan;
 
+// esc -> settings -> esc -> resume (does not react at all -- prob smth wrong with pause menu)
+// esc -> settings -> esc -> esc (need to esc twice -- prob bcz of EmitPaused in SettingsMenu)
+
 public partial class PausedMenu : CanvasLayer
 {
 #pragma warning disable IDE1006 // Naming Styles
@@ -14,11 +17,18 @@ public partial class PausedMenu : CanvasLayer
     {
         // TODO: settings should check if came from menu or game to go back to scene 
         // (if from game, state should be preserved)
-        GetTree().ChangeSceneToFile("res://scenes/ui/settings.tscn");
+        GetNode<CanvasLayer>("/root/Level1/PausedMenu").Visible = false;
+        GetNode<Node2D>("/root/Level1").Visible = false;
+
+        Globals.CameFromGame = true;
+
+        Node settings = ResourceLoader.Load<PackedScene>("res://scenes/ui/settings.tscn").Instantiate();
+        GetTree().Root.AddChild(settings);
     }
 
     private void _on_main_menu_button_pressed()
     {
+        Audio.StopAllAudio();
         GetTree().ChangeSceneToFile("res://scenes/ui/main_menu.tscn");
     }
 
@@ -29,6 +39,7 @@ public partial class PausedMenu : CanvasLayer
 
     private void _on_restart_button_pressed()
     {
+        Audio.StopAllAudio();
         GetTree().ReloadCurrentScene();
     }
 #pragma warning restore IDE1006 // Naming Styles
