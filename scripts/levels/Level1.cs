@@ -1,9 +1,11 @@
 using System;
+using System.Threading;
 using Godot;
 
 namespace PacMan;
 
-// TODO: after eating enough dots spawn 2 special powerups depending on level
+// TODO: still getting the discarded object label error when reloading scene
+
 // NOTE: they disappear after a while if you dont eat them (ask gpt how long they stay)
 //       - strawberry 2
 //       - orange 3,4
@@ -14,14 +16,13 @@ namespace PacMan;
 //       - key 13+
 
 // TODO: play interlevel intro sfx (requires defining intermissions/levels)
-// TODO: if pacman takes too much time to eat the dots, all ghost should wake up
 
 public partial class Level1 : Node2D
 {
     private Label score1Label, score2Label, highScoreLabel;
-    private int score1 = 0, score2 = 0, highScore = 0;
+    private int score1 = 0, score2 = 0;
     [Export]
-    public int CherrySpawnScore = 10 * 10;
+    public int CherrySpawnScore = 50 * 10;
     [Export]
     public int DotEatenScore = 10, PowerPelletEatenScore = 50, CherryEatenScore = 100;
     [Export]
@@ -35,17 +36,20 @@ public partial class Level1 : Node2D
     [Export]
     public Sprite2D Life1, Life2, Life3;
     [Export]
-    public String DotGroup = "Dots";
-    [Export]
     public int ExtraLifeScoreThreshold = 10_000;
     [Export]
     public int OneGhostEatenScore = 200, TwoGhostsEatenScore = 400, ThreeGhostsEatenScore = 800, FourGhostsEatenScore = 1600;
     private int ghostsEaten = 0;
     private double pelletModeTimer = 0.0f;
-
     private bool paused = false;
     [Export]
     public CanvasLayer PauseMenu;
+    private Godot.Collections.Array<Vector2I> freePowerupPositions = [];
+    [Export]
+    public double ForceWakeupGhostTime = 30.0f;
+    [Export]
+    public PackedScene CherryScene = ResourceLoader.Load<PackedScene>("res://scenes/powerups/cherry.tscn");
+    private bool spawnedCherriesThisRound = false;
 
     public override void _Ready()
     {
@@ -59,11 +63,12 @@ public partial class Level1 : Node2D
 
         PauseMenu = GetNode<CanvasLayer>("PausedMenu");
 
-        Events.DotEaten += () =>
+        Events.DotEaten += cell =>
         {
             IncreaseScore(DotEatenScore);
+            freePowerupPositions.Add(cell);
 
-            Godot.Collections.Array<Node> dots = GetTree().GetNodesInGroup(DotGroup);
+            Godot.Collections.Array<Node> dots = GetTree().GetNodesInGroup("Dots");
             if (dots.Count == 1) // queue free after event emittion
             {
                 CheckHighScore();
@@ -71,8 +76,21 @@ public partial class Level1 : Node2D
                 // TODO: do smth when winning? (sound/visual)
             }
         };
-        Events.PowerPelletEaten += () => { IncreaseScore(PowerPelletEatenScore); pelletModeTimer = 6.5f; };
-        Events.CherryEaten += () => { IncreaseScore(CherryEatenScore); };
+        Events.PowerPelletEaten += cell =>
+        {
+            IncreaseScore(PowerPelletEatenScore);
+            pelletModeTimer = 6.5f;
+            freePowerupPositions.Add(cell);
+        };
+        Events.CherryEaten += cell =>
+        {
+            IncreaseScore(CherryEatenScore);
+            freePowerupPositions.Add(cell);
+        };
+        Events.CherryExpired += cell =>
+        {
+            freePowerupPositions.Add(cell);
+        };
 
         Events.PacmanDied += () => { UpdateLifes(-1); }; // TODO: small pause before game start
         Events.BlinkyDied += () => { OnGhostDied(); };
@@ -81,7 +99,6 @@ public partial class Level1 : Node2D
         Events.ClydeDied += () => { OnGhostDied(); };
 
         lifes = MaxLifes;
-        UpdateLifes(1);
 
         Events.Unpaused += () =>
         {
@@ -90,7 +107,7 @@ public partial class Level1 : Node2D
         };
 
         Settings.LoadSettings();
-        SetHighScore(Settings.HighScore);
+        highScoreLabel.Text = Settings.HighScore.ToString();
 
         Audio.PlayBGM(Audio.Intro);
     }
@@ -122,6 +139,18 @@ public partial class Level1 : Node2D
             if (pelletModeTimer <= 0.0f)
                 ghostsEaten = 0;
         }
+
+        if (ForceWakeupGhostTime > 0.0f)
+        {
+            ForceWakeupGhostTime -= p_delta;
+            if (ForceWakeupGhostTime <= 0.0f)
+            {
+                Events.EmitBlinkyWakeupScoreHit();
+                Events.EmitInkyWakeupScoreHit();
+                Events.EmitPinkyWakeupScoreHit();
+                Events.EmitClydeWakeupScoreHit();
+            }
+        }
     }
 
     private void TogglePause()
@@ -136,10 +165,11 @@ public partial class Level1 : Node2D
 
     private void CheckHighScore()
     {
-        if (score1 > highScore)
-            highScore = score1;
-        if (score2 > highScore)
-            highScore = score2;
+        if (score1 > Settings.HighScore)
+            Settings.HighScore = score1;
+        if (score2 > Settings.HighScore)
+            Settings.HighScore = score2;
+
         Settings.SaveSettings();
     }
 
@@ -165,8 +195,9 @@ public partial class Level1 : Node2D
                 UpdateLifes(1);
             }
 
-            if (score1 >= CherrySpawnScore)
+            if (score1 >= CherrySpawnScore && !spawnedCherriesThisRound)
             {
+                spawnedCherriesThisRound = true;
                 SpawnCherries();
             }
         }
@@ -190,8 +221,9 @@ public partial class Level1 : Node2D
                 UpdateLifes(1);
             }
 
-            if (score2 >= CherrySpawnScore)
+            if (score2 >= CherrySpawnScore && !spawnedCherriesThisRound)
             {
+                spawnedCherriesThisRound = true;
                 SpawnCherries();
             }
         }
@@ -199,14 +231,45 @@ public partial class Level1 : Node2D
 
     private void SpawnCherries()
     {
-        // TODO: spawn cherries at random empty locations
+        RandomNumberGenerator rng = new();
+
+        int index = rng.RandiRange(0, freePowerupPositions.Count - 1);
+        Vector2I cell1 = freePowerupPositions[index] * 16 + new Vector2I(8, 8);
+        SpawnCherry(cell1);
+        freePowerupPositions.Remove(cell1);
+
+        int index2 = rng.RandiRange(0, freePowerupPositions.Count - 1);
+        while (index2 == index)
+            index2 = rng.RandiRange(0, freePowerupPositions.Count - 1);
+        Vector2I cell2 = freePowerupPositions[index2] * 16 + new Vector2I(8, 8);
+        SpawnCherry(cell2);
+        freePowerupPositions.Remove(cell2);
+    }
+
+    private void SpawnCherry(Vector2I cell)
+    {
+        if (CherryScene == null)
+        {
+            GD.PushError("Level1.cs: CherryScene is null, cannot spawn cherry!");
+            return;
+        }
+
+        Node2D cherry = CherryScene.Instantiate<Node2D>();
+        if (cherry == null)
+        {
+            GD.PushError("Level1.cs: Failed to instantiate CherryScene!");
+            return;
+        }
+
+        cherry.Position = cell; // assuming each cell is 16x16 pixels
+        AddChild(cherry);
     }
 
     private void UpdateLifes(int p_life)
     {
         if (p_life != -1 && p_life != 1)
         {
-            GD.PushError("Level1.cs: Tried to add/remove more than 1 life at a time!");
+            GD.PushWarning("Level1.cs: Tried to add/remove more than 1 life at a time!");
             return;
         }
 
@@ -214,7 +277,7 @@ public partial class Level1 : Node2D
         {
             if (lifes < 1)
             {
-                GD.PushError("Level1.cs: Tried to remove life when having none!");
+                GD.PushWarning("Level1.cs: Tried to remove life when having none!");
                 return;
             }
 
@@ -227,7 +290,7 @@ public partial class Level1 : Node2D
         {
             if (lifes > MaxLifes - 1)
             {
-                GD.PushError("Level1.cs: Tried to add life when having max");
+                GD.PushWarning("Level1.cs: Tried to add life when having max");
                 return;
             }
 
@@ -237,12 +300,6 @@ public partial class Level1 : Node2D
         Life1.Visible = lifes >= 1;
         Life2.Visible = lifes >= 2;
         Life3.Visible = lifes >= 3;
-    }
-
-    private void SetHighScore(int p_highScore)
-    {
-        highScore = p_highScore;
-        highScoreLabel.Text = highScore.ToString();
     }
 
     public override void _ExitTree()

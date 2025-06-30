@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://co3art12mwxe7"]
+[gd_scene load_steps=6 format=3 uid="uid://c52yv0xwipxow"]
 
 [ext_resource type="Script" uid="uid://15ir1uivf80n" path="res://scripts/characters/Ghost.cs" id="1_dvybq"]
 [ext_resource type="SpriteFrames" uid="uid://dn1tx5yats67d" path="res://resources/animations/eyes.tres" id="1_j2eer"]
@@ -11,6 +11,8 @@ size = Vector2(16, 16)
 size = Vector2(16, 16)
 
 [node name="Ghost" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("1_dvybq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

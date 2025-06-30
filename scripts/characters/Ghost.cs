@@ -3,9 +3,6 @@ using Godot;
 
 namespace PacMan;
 
-// TODO: sometimes the ghosts get desync wearing scared/wearing times
-// TODO: prob need to remove ghost layer from ghost scene cuz they collide with each other
-
 public partial class Ghost : Character
 {
     private AnimatedSprite2D GhostSprite, Eyes;
@@ -33,7 +30,7 @@ public partial class Ghost : Character
     [Export]
     protected GhostType ghostType;
 
-    private String MovingAnimation, IdleAnimation;
+    private string MovingAnimation, IdleAnimation;
 
     public override void _Ready()
     {
@@ -42,7 +39,7 @@ public partial class Ghost : Character
         GhostSprite ??= GetNode<AnimatedSprite2D>("Ghost");
         Eyes ??= GetNode<AnimatedSprite2D>("Eyes");
 
-        Events.PowerPelletEaten += () =>
+        Events.PowerPelletEaten += cell =>
         {
             justScared = true;
             scaredTime = ScaredInterval;
@@ -123,6 +120,8 @@ public partial class Ghost : Character
             GhostSprite.Animation = IdleAnimation;
             Events.ClydeWakeupScoreHit += () => { enabled = true; };
         }
+
+        Events.PacmanDied += () => { GotoSpawn(); };
     }
 
     public override void _PhysicsProcess(double p_delta)
@@ -253,17 +252,19 @@ public partial class Ghost : Character
                 QueueFree();
             }
             else
-            {
-                if (ghostType == GhostType.BLINKY)
-                    GlobalPosition = new Vector2(14, 14) * 16 + new Vector2(8, 8);
-                else if (ghostType == GhostType.INKY)
-                    GlobalPosition = new Vector2(11, 18) * 16 + new Vector2(8, 8);
-                else if (ghostType == GhostType.PINKY)
-                    GlobalPosition = new Vector2(14, 18) * 16 + new Vector2(8, 8);
-                else if (ghostType == GhostType.CLYDE)
-                    GlobalPosition = new Vector2(16, 18) * 16 + new Vector2(8, 8);
                 Events.EmitPacmanDied();
-            }
+    }
+
+    private void GotoSpawn()
+    {
+        if (ghostType == GhostType.BLINKY)
+            GlobalPosition = new Vector2(14, 14) * 16 + new Vector2(8, 8);
+        else if (ghostType == GhostType.INKY)
+            GlobalPosition = new Vector2(11, 18) * 16 + new Vector2(8, 8);
+        else if (ghostType == GhostType.PINKY)
+            GlobalPosition = new Vector2(14, 18) * 16 + new Vector2(8, 8);
+        else if (ghostType == GhostType.CLYDE)
+            GlobalPosition = new Vector2(16, 18) * 16 + new Vector2(8, 8);
     }
 
     protected Vector2I ComputeNextPosition()

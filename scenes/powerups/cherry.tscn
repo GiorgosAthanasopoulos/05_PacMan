@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d11he8ms5pc6e" path="res://assets/sprites/powerups/cherry/cherry.png" id="1_t0jp6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t0jp6"]
-size = Vector2(8, 8)
+size = Vector2(16, 16)
 
 [node name="Cherry" type="Area2D"]
 collision_layer = 2

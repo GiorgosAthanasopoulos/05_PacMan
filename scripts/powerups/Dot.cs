@@ -9,7 +9,7 @@ public partial class Dot : Area2D
     {
         if (!Audio.IsPlaying(Audio.Chomp))
             Audio.PlaySFX(Audio.Chomp);
-        Events.EmitDotEaten();
+        Events.EmitDotEaten((Vector2I)GlobalPosition / 16);
         QueueFree();
     }
 #pragma warning restore IDE1006 // Naming Styles

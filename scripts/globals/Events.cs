@@ -5,9 +5,10 @@ namespace PacMan;
 
 public partial class Events : Node
 {
-    public static event Action DotEaten;
-    public static event Action PowerPelletEaten;
-    public static event Action CherryEaten;
+    public static event Action<Vector2I> DotEaten;
+    public static event Action<Vector2I> PowerPelletEaten;
+    public static event Action<Vector2I> CherryEaten;
+    public static event Action<Vector2I> CherryExpired;
 
     public static event Action BlinkyWakeupScoreHit;
     public static event Action BlinkyDied;
@@ -28,19 +29,24 @@ public partial class Events : Node
 
     public static event Action LeftGameScene;
 
-    public static void EmitDotEaten()
+    public static void EmitCherryExpired(Vector2I p_cell)
     {
-        DotEaten?.Invoke();
+        CherryExpired?.Invoke(p_cell);
     }
 
-    public static void EmitPowerPelletEaten()
+    public static void EmitDotEaten(Vector2I p_cell)
     {
-        PowerPelletEaten?.Invoke();
+        DotEaten?.Invoke(p_cell);
     }
 
-    public static void EmitCherryEaten()
+    public static void EmitPowerPelletEaten(Vector2I p_cell)
     {
-        CherryEaten?.Invoke();
+        PowerPelletEaten?.Invoke(p_cell);
+    }
+
+    public static void EmitCherryEaten(Vector2I p_cell)
+    {
+        CherryEaten?.Invoke(p_cell);
     }
 
     public static void EmitBlinkyWakeupScoreHit()
