@@ -15,8 +15,6 @@ public partial class PausedMenu : CanvasLayer
 
     private void _on_settings_button_pressed()
     {
-        // TODO: settings should check if came from menu or game to go back to scene 
-        // (if from game, state should be preserved)
         GetNode<CanvasLayer>("/root/Level1/PausedMenu").Visible = false;
         GetNode<Node2D>("/root/Level1").Visible = false;
 

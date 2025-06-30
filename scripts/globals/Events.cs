@@ -26,6 +26,8 @@ public partial class Events : Node
     public static event Action Paused;
     public static event Action Unpaused;
 
+    public static event Action LeftGameScene;
+
     public static void EmitDotEaten()
     {
         DotEaten?.Invoke();
@@ -94,5 +96,23 @@ public partial class Events : Node
     public static void EmitUnpaused()
     {
         Unpaused?.Invoke();
+    }
+
+    public static void EmitLeftGameScene()
+    {
+        LeftGameScene?.Invoke();
+    }
+
+    public override void _Ready()
+    {
+        Events.DotEaten = null;
+        Events.PowerPelletEaten = null;
+        Events.CherryEaten = null;
+        Events.PacmanDied = null;
+        Events.BlinkyDied = null;
+        Events.PinkyDied = null;
+        Events.InkyDied = null;
+        Events.ClydeDied = null;
+        Events.Unpaused = null;
     }
 }

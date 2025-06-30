@@ -18,9 +18,10 @@ namespace PacMan;
 
 public partial class Level1 : Node2D
 {
-    [Export]
-    public Label score1Label, score2Label, highScoreLabel;
+    private Label score1Label, score2Label, highScoreLabel;
     private int score1 = 0, score2 = 0, highScore = 0;
+    [Export]
+    public int CherrySpawnScore = 10 * 10;
     [Export]
     public int DotEatenScore = 10, PowerPelletEatenScore = 50, CherryEatenScore = 100;
     [Export]
@@ -48,6 +49,16 @@ public partial class Level1 : Node2D
 
     public override void _Ready()
     {
+        score1Label = GetNode<Label>("UI/ScoreRow/GridContainer/1UpLabel");
+        highScoreLabel = GetNode<Label>("UI/ScoreRow/GridContainer2/HighScoreLabel");
+        score2Label = GetNode<Label>("UI/ScoreRow/GridContainer3/2UpLabel");
+
+        Life1 = GetNode<Sprite2D>("UI/LifePowerupRow/GridContainer/LifeCounter");
+        Life2 = GetNode<Sprite2D>("UI/LifePowerupRow/GridContainer/LifeCounter2");
+        Life3 = GetNode<Sprite2D>("UI/LifePowerupRow/GridContainer/LifeCounter3");
+
+        PauseMenu = GetNode<CanvasLayer>("PausedMenu");
+
         Events.DotEaten += () =>
         {
             IncreaseScore(DotEatenScore);
@@ -62,34 +73,15 @@ public partial class Level1 : Node2D
         };
         Events.PowerPelletEaten += () => { IncreaseScore(PowerPelletEatenScore); pelletModeTimer = 6.5f; };
         Events.CherryEaten += () => { IncreaseScore(CherryEatenScore); };
-        Events.PacmanDied += () => { UpdateLifes(-1); }; // TODO: small pause before game start
-        Events.BlinkyDied += () =>
-        {
-            OnGhostDied();
-        };
-        Events.PinkyDied += () =>
-        {
-            OnGhostDied();
-        };
-        Events.InkyDied += () =>
-        {
-            OnGhostDied();
-        };
-        Events.ClydeDied += () =>
-        {
-            OnGhostDied();
-        };
 
-        Settings.LoadSettings();
-        SetHighScore(Settings.HighScore);
+        Events.PacmanDied += () => { UpdateLifes(-1); }; // TODO: small pause before game start
+        Events.BlinkyDied += () => { OnGhostDied(); };
+        Events.PinkyDied += () => { OnGhostDied(); };
+        Events.InkyDied += () => { OnGhostDied(); };
+        Events.ClydeDied += () => { OnGhostDied(); };
 
         lifes = MaxLifes;
-
-        Life1 = GetNode<Sprite2D>("UI/LifePowerupRow/GridContainer/LifeCounter");
-        Life2 = GetNode<Sprite2D>("UI/LifePowerupRow/GridContainer/LifeCounter2");
-        Life3 = GetNode<Sprite2D>("UI/LifePowerupRow/GridContainer/LifeCounter3");
-
-        PauseMenu = GetNode<CanvasLayer>("PausedMenu");
+        UpdateLifes(1);
 
         Events.Unpaused += () =>
         {
@@ -97,10 +89,8 @@ public partial class Level1 : Node2D
                 TogglePause();
         };
 
-        // TODO: after restarting, these are not null but at the same time they are dead(discarded) values
-        score1Label ??= GetNode<Label>("UI/ScoreRow/GridContainer/1UpLabel");
-        highScoreLabel ??= GetNode<Label>("UI/ScoreRow/GridContainer2/HighScoreLabel");
-        score2Label ??= GetNode<Label>("UI/ScoreRow/GridContainer3/2UpLabel");
+        Settings.LoadSettings();
+        SetHighScore(Settings.HighScore);
 
         Audio.PlayBGM(Audio.Intro);
     }
@@ -168,10 +158,16 @@ public partial class Level1 : Node2D
                 Events.EmitInkyWakeupScoreHit();
             if (score1 >= ClydeWakeupScore)
                 Events.EmitClydeWakeupScoreHit();
+
             if (score1 >= ExtraLifeScoreThreshold)
             {
                 Audio.PlaySFX(Audio.ExtraPac);
                 UpdateLifes(1);
+            }
+
+            if (score1 >= CherrySpawnScore)
+            {
+                SpawnCherries();
             }
         }
         else if (p_player == 2)
@@ -187,12 +183,23 @@ public partial class Level1 : Node2D
                 Events.EmitInkyWakeupScoreHit();
             if (score2 >= ClydeWakeupScore)
                 Events.EmitClydeWakeupScoreHit();
+
             if (score2 >= ExtraLifeScoreThreshold)
             {
                 Audio.PlaySFX(Audio.ExtraPac);
                 UpdateLifes(1);
             }
+
+            if (score2 >= CherrySpawnScore)
+            {
+                SpawnCherries();
+            }
         }
+    }
+
+    private void SpawnCherries()
+    {
+        // TODO: spawn cherries at random empty locations
     }
 
     private void UpdateLifes(int p_life)
@@ -241,5 +248,6 @@ public partial class Level1 : Node2D
     public override void _ExitTree()
     {
         Settings.SaveSettings();
+        Events.EmitLeftGameScene();
     }
 }
