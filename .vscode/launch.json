@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-without-tests",
-            "program": "${env:GODOT}",
+            "program": "/home/george/Downloads/Godot_v4.5-beta1_mono_linux_x86_64/Godot_v4.5-beta1_mono_linux.x86_64",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
@@ -20,12 +20,12 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-without-tests",
-            "program": "",
+            "program": "/home/george/Downloads/Godot_v4.5-beta1_mono_linux_x86_64/Godot_v4.5-beta1_mono_linux.x86_64",
             "internalConsoleOptions": "openOnSessionStart",
             "pipeTransport": {
                 "debuggerPath": "${extensionInstallFolder:muhammad-sammy.csharp}/.debugger/netcoredbg/netcoredbg",
                 "pipeCwd": "${workspaceFolder}",
-                "pipeProgram": "${env:GODOT}",
+                "program": "/home/george/Downloads/Godot_v4.5-beta1_mono_linux_x86_64/Godot_v4.5-beta1_mono_linux.x86_64",
                 "pipeArgs": [
                     "--debug"
                 ]
@@ -50,7 +50,7 @@
                     //
                     "debuggerPath": "${env:NETCOREDBG}",
                     "pipeCwd": "${workspaceFolder}",
-                    "pipeProgram": "${env:GODOT}",
+                    "program": "/home/george/Downloads/Godot_v4.5-beta1_mono_linux_x86_64/Godot_v4.5-beta1_mono_linux.x86_64",
                     "pipeArgs": [
                         "--debug"
                     ]
@@ -64,7 +64,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-without-tests",
-            "program": "${env:GODOT}",
+            "program": "/home/george/Downloads/Godot_v4.5-beta1_mono_linux_x86_64/Godot_v4.5-beta1_mono_linux.x86_64",
             "args": [
                 "${fileDirname}/${fileBasenameNoExtension}.tscn"
             ],
@@ -77,7 +77,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${env:GODOT}",
+            "program": "/home/george/Downloads/Godot_v4.5-beta1_mono_linux_x86_64/Godot_v4.5-beta1_mono_linux.x86_64",
             "args": [
                 // These command line flags are used by GoDotTest to run tests.
                 "--run-tests",
@@ -92,7 +92,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${env:GODOT}",
+            "program": "/home/george/Downloads/Godot_v4.5-beta1_mono_linux_x86_64/Godot_v4.5-beta1_mono_linux.x86_64",
             "args": [
                 // These command line flags are used by GoDotTest to run tests.
                 "--run-tests=${fileBasenameNoExtension}",

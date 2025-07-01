@@ -1,21 +1,8 @@
-using System;
-using System.Threading;
 using Godot;
 
 namespace PacMan;
 
 // TODO: still getting the discarded object label error when reloading scene
-
-// NOTE: they disappear after a while if you dont eat them (ask gpt how long they stay)
-//       - strawberry 2
-//       - orange 3,4
-//       - apple 5,6
-//       - melon 7,8
-//       - galaxian 9,10
-//       - bell 11,12
-//       - key 13+
-
-// TODO: play interlevel intro sfx (requires defining intermissions/levels)
 
 public partial class Level1 : Node2D
 {
@@ -50,6 +37,8 @@ public partial class Level1 : Node2D
     [Export]
     public PackedScene CherryScene = ResourceLoader.Load<PackedScene>("res://scenes/powerups/cherry.tscn");
     private bool spawnedCherriesThisRound = false;
+    private double pauseTimer = 0.0f;
+    private float pacmanRespawnPauseTime = 2.0f;
 
     public override void _Ready()
     {
@@ -73,7 +62,7 @@ public partial class Level1 : Node2D
             {
                 CheckHighScore();
                 GetTree().ReloadCurrentScene();
-                // TODO: do smth when winning? (sound/visual)
+                Audio.PlaySFX(Audio.Intermission);
             }
         };
         Events.PowerPelletEaten += cell =>
@@ -92,7 +81,12 @@ public partial class Level1 : Node2D
             freePowerupPositions.Add(cell);
         };
 
-        Events.PacmanDied += () => { UpdateLifes(-1); }; // TODO: small pause before game start
+        Events.PacmanDied += () =>
+        {
+            UpdateLifes(-1);
+            Events.EmitPaused();
+            pauseTimer = pacmanRespawnPauseTime;
+        };
         Events.BlinkyDied += () => { OnGhostDied(); };
         Events.PinkyDied += () => { OnGhostDied(); };
         Events.InkyDied += () => { OnGhostDied(); };
@@ -132,6 +126,16 @@ public partial class Level1 : Node2D
     {
         if (Input.IsActionJustPressed("ui_cancel"))
             TogglePause();
+
+        if (paused)
+            return;
+
+        if (pauseTimer > 0.0f)
+        {
+            pauseTimer -= p_delta;
+            if (pauseTimer < 0.0f)
+                Events.EmitUnpaused();
+        }
 
         if (pelletModeTimer > 0.0f)
         {
