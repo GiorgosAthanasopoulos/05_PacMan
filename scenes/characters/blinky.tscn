@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bieha4sajiwt7"]
+[gd_scene load_steps=2 format=3 uid="uid://byybvo2g7cu7a"]
 
-[ext_resource type="PackedScene" uid="uid://co3art12mwxe7" path="res://scenes/characters/ghost.tscn" id="1_1mary"]
+[ext_resource type="PackedScene" uid="uid://c52yv0xwipxow" path="res://scenes/characters/ghost.tscn" id="1_1mary"]
 
-[node name="Blinky" type="Node2D"]
+[node name="Blinky" type="Node2D" groups=["Blinky"]]
 
 [node name="Ghost" parent="." instance=ExtResource("1_1mary")]
 MoveInterval = 0.25

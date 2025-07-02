@@ -58,14 +58,19 @@ public partial class Pacman : Character
         }
 
         if (direction == Direction.UP)
-            animatedSprite.RotationDegrees = 270;
+            GlobalRotationDegrees = 270;
+        // animatedSprite.RotationDegrees = 270;
         if (direction == Direction.LEFT)
-            animatedSprite.RotationDegrees = 180;
+            GlobalRotationDegrees = 180;
+        // animatedSprite.RotationDegrees = 180;
         if (direction == Direction.DOWN)
-            animatedSprite.RotationDegrees = 90;
+            GlobalRotationDegrees = 90;
+        // animatedSprite.RotationDegrees = 90;
         if (direction == Direction.RIGHT)
-            animatedSprite.RotationDegrees = 0;
+            GlobalRotationDegrees = 0;
+        // animatedSprite.RotationDegrees = 0;
         if (direction == Direction.NONE)
-            animatedSprite.RotationDegrees = 0;
+            GlobalRotationDegrees = 0;
+        // animatedSprite.RotationDegrees = 0;
     }
 }

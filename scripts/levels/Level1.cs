@@ -2,8 +2,6 @@ using Godot;
 
 namespace PacMan;
 
-// TODO: still getting the discarded object label error when reloading scene
-
 public partial class Level1 : Node2D
 {
     private Label score1Label, score2Label, highScoreLabel;
@@ -310,5 +308,6 @@ public partial class Level1 : Node2D
     {
         Settings.SaveSettings();
         Events.EmitLeftGameScene();
+        Events.ResetLevel1Events();
     }
 }

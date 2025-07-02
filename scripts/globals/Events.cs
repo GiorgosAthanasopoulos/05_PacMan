@@ -111,6 +111,11 @@ public partial class Events : Node
 
     public override void _Ready()
     {
+        ResetLevel1Events();
+    }
+
+    public static void ResetLevel1Events()
+    {
         Events.DotEaten = null;
         Events.PowerPelletEaten = null;
         Events.CherryEaten = null;

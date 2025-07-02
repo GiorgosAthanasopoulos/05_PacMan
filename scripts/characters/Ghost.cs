@@ -36,6 +36,7 @@ public partial class Ghost : Character
     private bool eyes = false, justEyes = false;
 
     private Vector2I spawnPosition;
+    private Node2D blinky;
 
     public override void _Ready()
     {
@@ -61,7 +62,7 @@ public partial class Ghost : Character
         Godot.Collections.Array<Node> maps = GetTree().GetNodesInGroup("Map");
         if (maps.Count == 0)
             GD.PushError("Ghost.cs: No Map found in `Map` group.");
-        else if (pacmans.Count > 1)
+        else if (maps.Count > 1)
             GD.PushError("Ghost.cs: Found multiple Maps in `Map` group.");
         else
             Map = (TileMapLayer)maps[0];
@@ -134,7 +135,21 @@ public partial class Ghost : Character
         {
             GlobalPosition = spawnPosition;
             direction = Direction.NONE;
+            scaredTime = 0.0f;
+            justScared = false;
+            wearingTime = 0.0f;
+            justWearing = false;
+            eyes = false;
+            justEyes = false;
         };
+
+        Godot.Collections.Array<Node> blinkys = GetTree().GetNodesInGroup("Blinky");
+        if (blinkys.Count == 0)
+            GD.PushError("Ghost.cs: No Blinky found in `Blinky` group.");
+        else if (blinkys.Count > 1)
+            GD.PushError("Ghost.cs: Found multiple Blinkys in `Blinky` group.");
+        else
+            blinky = (Node2D)blinkys[0];
     }
 
     public override void _PhysicsProcess(double p_delta)
@@ -311,9 +326,43 @@ public partial class Ghost : Character
 
         Vector2I pacmanPos = GlobalToIdPos(Pacman.GlobalPosition);
 
-        if (ghostType == GhostType.PINKY) { } // TODO: implement pinky nav
-        if (ghostType == GhostType.INKY) { } // TODO: implement inky nav
-        if (ghostType == GhostType.CLYDE) { } // TODO: implement clyde nav
+        if (ghostType == GhostType.PINKY)
+        {
+            if (Pacman.GlobalRotationDegrees == 270)  // up
+                return pacmanPos - new Vector2I(0, 4);
+            else if (Pacman.GlobalRotationDegrees == 180) // left
+                return pacmanPos - new Vector2I(4, 0);
+            else if (Pacman.GlobalRotationDegrees == 90)  // down
+                return pacmanPos + new Vector2I(0, 4);
+            else if (Pacman.GlobalRotationDegrees == 0) // right/none
+                return pacmanPos + new Vector2I(4, 0);
+        }
+
+        if (ghostType == GhostType.INKY)
+        {
+            Vector2I pacman2Ahead = GlobalToIdPos(Pacman.GlobalPosition);
+            if (Pacman.GlobalRotationDegrees == 270)  // up
+                pacman2Ahead -= new Vector2I(0, 2);
+            if (Pacman.GlobalRotationDegrees == 180) // left
+                pacman2Ahead -= new Vector2I(2, 0);
+            if (Pacman.GlobalRotationDegrees == 90)  // down
+                pacman2Ahead += new Vector2I(0, 2);
+            if (Pacman.GlobalRotationDegrees == 0) // right/none
+                pacman2Ahead += new Vector2I(2, 0);
+
+            Vector2I blinkyPos = GlobalToIdPos(blinky.GlobalPosition);
+            Vector2I vector2 = pacman2Ahead - blinkyPos;
+            return blinkyPos + vector2 * 2;
+        }
+
+        if (ghostType == GhostType.CLYDE)
+        {
+            int pacmanClydeDistance = (int)Math.Ceiling((GlobalToIdPos(Pacman.GlobalPosition) - GlobalToIdPos(GlobalPosition)).Length());
+            if (pacmanClydeDistance > 8)
+                return pacmanPos;
+            else
+                return new Vector2I(16, 18);
+        }
 
         return pacmanPos;
     }
@@ -342,6 +391,11 @@ public partial class Ghost : Character
         if (current == target)
         {
             direction = Direction.NONE;
+            return;
+        }
+        if (!aStarGrid.IsInBounds(target.X, target.Y))
+        {
+            GD.PushError("nav target out of bounds!");
             return;
         }
 
